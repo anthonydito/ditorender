@@ -3,11 +3,14 @@
 
 #include <vector>
 
-namespace dito::util {
+namespace dito::util
+{
     using tuple = std::vector<double>;
-    bool operator==(const tuple& lefs, const tuple& rhs);
-    tuple point(double x, double y, double z);
-    tuple vector(double x, double y, double z);
+    tuple tuple_add(const tuple &lfs, const tuple &rhs);
+    tuple tuple_sub(const tuple &lfs, const tuple &rhs);
+    bool tuple_equal(const tuple &lfs, const tuple &rhs);
+    tuple create_point(double x, double y, double z);
+    tuple create_vector(double x, double y, double z);
 };
 
 // #endif
