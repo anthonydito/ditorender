@@ -22,15 +22,6 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(
-  hello_test
-  hello_test.cpp
-)
-target_link_libraries(
-  hello_test
-  gtest_main
-)
-
-add_executable(
   util_tuple_test
   src/util/tuple_Test.cpp
   src/util/tuple.cpp
@@ -41,4 +32,4 @@ target_link_libraries(
 )
 
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(util_tuple_test)

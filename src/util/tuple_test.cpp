@@ -68,3 +68,82 @@ TEST(Tuples, SubtractTwoVectors)
     auto expected = util::create_vector(-2, -4, -6);
     EXPECT_TRUE(util::tuple_equal(util::tuple_sub(v1, v2), expected));
 }
+
+TEST(Tuples, SubtractZeroVector)
+{
+    auto zero = util::create_vector(0, 0, 0);
+    auto v = util::create_vector(1, -2, 3);
+    auto expected = util::create_vector(-1, 2, -3);
+    EXPECT_TRUE(util::tuple_equal(util::tuple_sub(zero, v), expected));
+}
+
+TEST(Tuples, NegateTuple)
+{
+    util::tuple v = util::tuple{1, -2, 3, -4};
+    util::tuple expected = util::tuple{-1, 2, -3, 4};
+    EXPECT_TRUE(util::tuple_equal(util::tuple_negate(v), expected));
+}
+
+TEST(Tuples, Multiply1)
+{
+    util::tuple a = util::tuple{1, -2, 3, -4};
+    util::tuple expected = util::tuple{3.5, -7, 10.5, -14};
+    EXPECT_TRUE(util::tuple_equal(util::tuple_multiply(a, 3.5), expected));
+}
+
+TEST(Tuples, Multiply2)
+{
+    util::tuple a = util::tuple{1, -2, 3, -4};
+    util::tuple expected = util::tuple{0.5, -1, 1.5, -2};
+    EXPECT_TRUE(util::tuple_equal(util::tuple_multiply(a, 0.5), expected));
+}
+
+TEST(Tuples, Divide)
+{
+    util::tuple a = util::tuple{1, -2, 3, -4};
+    util::tuple expected = util::tuple{0.5, -1, 1.5, -2};
+    EXPECT_TRUE(util::tuple_equal(util::tuple_divide(a, 2), expected));
+}
+
+TEST(Tuples, Magnitude1)
+{
+    auto v  = util::create_vector(1, 0, 0);
+    EXPECT_EQ(util::tuple_magnitude(v), 1);
+}
+
+TEST(Tuples, Magnitude2)
+{
+    auto v  = util::create_vector(0, 1, 0);
+    EXPECT_EQ(util::tuple_magnitude(v), 1);
+}
+
+TEST(Tuples, Magnitude3)
+{
+    auto v  = util::create_vector(0, 0, 1);
+    EXPECT_EQ(util::tuple_magnitude(v), 1);
+}
+
+TEST(Tuples, Magnitude4)
+{
+    auto v  = util::create_vector(0, 0, 1);
+    EXPECT_EQ(util::tuple_magnitude(v), 1);
+}
+
+TEST(Tuples, Magnitude5)
+{
+    auto v  = util::create_vector(0, 0, 1);
+    EXPECT_EQ(util::tuple_magnitude(v), 1);
+}
+
+TEST(Tuples, Magnitude6)
+{
+    auto v = util::create_vector(1, 2, 3);
+    EXPECT_EQ(util::tuple_magnitude(v), sqrt(14));
+}
+
+TEST(Tuples, Magnitude7)
+{
+    auto v = util::create_vector(-1, -2, -3);
+    EXPECT_EQ(util::tuple_magnitude(v), sqrt(14));
+}
+

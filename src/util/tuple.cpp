@@ -1,5 +1,7 @@
 #include "tuple.hpp"
 
+#include <cmath>
+
 using namespace dito;
 
 const double COMPARE_EPSILON = 0.000001;
@@ -32,6 +34,16 @@ util::tuple util::tuple_sub(const util::tuple &lhs, const util::tuple &rhs)
     return output;
 }
 
+util::tuple util::tuple_negate(const util::tuple &t)
+{
+    util::tuple output;
+    for (const auto elem : t)
+    {
+        output.push_back(-elem);
+    }
+    return output;
+}
+
 bool util::tuple_equal(const util::tuple &lhs, const util::tuple &rhs)
 {
     if (lhs.size() != rhs.size())
@@ -47,6 +59,29 @@ bool util::tuple_equal(const util::tuple &lhs, const util::tuple &rhs)
         }
     }
     return true;
+}
+
+util::tuple util::tuple_multiply(const util::tuple &t, double scalar)
+{
+    util::tuple output;
+    for (const auto elem : t)
+    {
+        output.push_back(elem * scalar);
+    }
+    return output;
+}
+
+util::tuple util::tuple_divide(const util::tuple &t, double scalar)
+{
+    return util::tuple_multiply(t, 1 / scalar);
+}
+
+double util::tuple_magnitude(const util::tuple &t) {
+    double sum_of_squares = 0;
+    for (const auto elem : t) {
+        sum_of_squares += elem * elem;
+    }
+    return sqrt(sum_of_squares);
 }
 
 util::tuple util::create_point(double x, double y, double z)
