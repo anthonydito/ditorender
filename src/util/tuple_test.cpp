@@ -169,3 +169,20 @@ TEST(Tuples, Normalize2)
     EXPECT_NEAR(util::tuple_magnitude(normalized), 1, .0001);
 }
 
+TEST(Tuples, Dot)
+{
+    auto a = util::create_vector(1, 2, 3);
+    auto b = util::create_vector(2, 3, 4);
+    auto result = util::tuple_dot(a, b);
+    EXPECT_EQ(result, 20);
+}
+
+TEST(tuples, Cross)
+{
+    auto a = util::create_vector(1, 2, 3);
+    auto b = util::create_vector(2, 3, 4);
+    auto cross1 = util::tuple_cross(a, b);
+    auto cross2 = util::tuple_cross(b, a);
+    EXPECT_TRUE(util::tuple_equal(cross1, util::create_vector(-1, 2, -1)));
+    EXPECT_TRUE(util::tuple_equal(cross2, util::create_vector(1, -2, 1)));
+}
