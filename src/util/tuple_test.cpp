@@ -107,31 +107,31 @@ TEST(Tuples, Divide)
 
 TEST(Tuples, Magnitude1)
 {
-    auto v  = util::create_vector(1, 0, 0);
+    auto v = util::create_vector(1, 0, 0);
     EXPECT_EQ(util::tuple_magnitude(v), 1);
 }
 
 TEST(Tuples, Magnitude2)
 {
-    auto v  = util::create_vector(0, 1, 0);
+    auto v = util::create_vector(0, 1, 0);
     EXPECT_EQ(util::tuple_magnitude(v), 1);
 }
 
 TEST(Tuples, Magnitude3)
 {
-    auto v  = util::create_vector(0, 0, 1);
+    auto v = util::create_vector(0, 0, 1);
     EXPECT_EQ(util::tuple_magnitude(v), 1);
 }
 
 TEST(Tuples, Magnitude4)
 {
-    auto v  = util::create_vector(0, 0, 1);
+    auto v = util::create_vector(0, 0, 1);
     EXPECT_EQ(util::tuple_magnitude(v), 1);
 }
 
 TEST(Tuples, Magnitude5)
 {
-    auto v  = util::create_vector(0, 0, 1);
+    auto v = util::create_vector(0, 0, 1);
     EXPECT_EQ(util::tuple_magnitude(v), 1);
 }
 
@@ -145,5 +145,27 @@ TEST(Tuples, Magnitude7)
 {
     auto v = util::create_vector(-1, -2, -3);
     EXPECT_EQ(util::tuple_magnitude(v), sqrt(14));
+}
+
+TEST(Tuples, Normalize1)
+{
+    auto v = util::create_vector(4, 0, 0);
+    EXPECT_EQ(util::tuple_magnitude(v), 4);
+    auto expected = util::create_vector(1, 0, 0);
+    EXPECT_TRUE(
+        util::tuple_equal(util::tuple_normalize(v),
+                          expected));
+}
+
+TEST(Tuples, Normalize2)
+{
+    auto v = util::create_vector(1, 2, 3);
+    auto expected = util::create_vector(0.26726, 0.53452, 0.80178);
+    auto normalized = util::tuple_normalize(v);
+    EXPECT_NEAR(
+        normalized[0], 0.26726, .0001);
+    EXPECT_NEAR(normalized[1], 0.53452, .0001);
+    EXPECT_NEAR(normalized[2], 0.80178, .0001);
+    EXPECT_NEAR(util::tuple_magnitude(normalized), 1, .0001);
 }
 

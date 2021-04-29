@@ -84,6 +84,11 @@ double util::tuple_magnitude(const util::tuple &t) {
     return sqrt(sum_of_squares);
 }
 
+util::tuple util::tuple_normalize(const util::tuple &t) {
+    auto const magnitude = util::tuple_magnitude(t);
+    return util::tuple_divide(t, magnitude);
+}
+
 util::tuple util::create_point(double x, double y, double z)
 {
     util::tuple output = {x, y, z, 1};
