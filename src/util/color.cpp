@@ -38,9 +38,14 @@ Color Color::sub(Color const &other) const
     return Color(this->red() - other.red(), this->green() - other.green(), this->blue() - other.blue());
 }
 
+Color Color::mult(double scalar) const
+{
+    return Color(this->red() * scalar, this->green() * scalar, this->blue() * scalar);
+}
+
 Color Color::mult(Color const &other) const
 {
-    return Color(this->red() * other.red(), this->green() * other.green(), this->blue() + other.blue());
+    return Color(this->red() * other.red(), this->green() * other.green(), this->blue() * other.blue());
 }
 
 bool Color::eq(Color const &other) const
@@ -58,6 +63,11 @@ Color Color::operator+(Color const &other) const
 Color Color::operator-(Color const &other) const
 {
     return this->sub(other);
+}
+
+Color Color::operator*(double scalar) const
+{
+    return this->mult(scalar);
 }
 
 Color Color::operator*(Color const &other) const

@@ -12,11 +12,13 @@ namespace dito::util
         double blue() const;
         Color add(Color const &other) const;
         Color sub(Color const &other) const;
+        Color mult(double scalar) const;
         Color mult(Color const &other) const;
         bool eq(Color const &other) const;
 
         Color operator+(Color const &other) const;
         Color operator-(Color const &other) const;
+        Color operator*(double scalar) const;
         Color operator*(Color const &other) const;
         bool operator==(Color const &other) const;
         bool operator!=(Color const &other) const;
