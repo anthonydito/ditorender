@@ -7,9 +7,19 @@ namespace dito::util
 
     public:
         Color(double, double, double);
-        double red();
-        double green();
-        double blue();
+        double red() const;
+        double green() const;
+        double blue() const;
+        Color add(Color const &other) const;
+        Color sub(Color const &other) const;
+        Color mult(Color const &other) const;
+        bool eq(Color const &other) const;
+
+        Color operator+(Color const &other) const;
+        Color operator-(Color const &other) const;
+        Color operator*(Color const &other) const;
+        bool operator==(Color const &other) const;
+        bool operator!=(Color const &other) const;
 
     private:
         double _red;

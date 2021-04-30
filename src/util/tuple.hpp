@@ -24,9 +24,9 @@ namespace dito::util
         Tuple divide(double) const;
         Vector to_vector() const;
 
-        Tuple operator+(Tuple const &other);
-        Tuple operator-(Tuple const &other);
-        bool operator==(Tuple const &other);
+        Tuple operator+(Tuple const &other) const;
+        Tuple operator-(Tuple const &other) const;
+        bool operator==(Tuple const &other) const;
 
     private:
         double _x;

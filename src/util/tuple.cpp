@@ -80,17 +80,17 @@ std::ostream &operator<<(std::ostream &os, const Tuple &obj)
     os << "x=" << obj.x() << ", y=" << obj.y() << ", z=" << obj.z() << ", w=" << obj.w();
 }
 
-Tuple Tuple::operator+(Tuple const &other)
+Tuple Tuple::operator+(Tuple const &other) const
 {
     return this->add(other);
 }
 
-Tuple Tuple::operator-(Tuple const &other)
+Tuple Tuple::operator-(Tuple const &other) const
 {
     return this->sub(other);
 }
 
-bool Tuple::operator==(Tuple const &other)
+bool Tuple::operator==(Tuple const &other) const
 {
     return this->eq(other);
 }
