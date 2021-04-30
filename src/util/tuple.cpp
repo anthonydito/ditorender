@@ -2,126 +2,81 @@
 
 #include <cmath>
 
-using namespace dito;
+using namespace dito::util;
 
 const double COMPARE_EPSILON = 0.000001;
 
-util::tuple util::tuple_add(const util::tuple &lhs, const util::tuple &rhs)
+Tuple::Tuple(double x, double y, double z, double w)
 {
-    if (lhs.size() != 4 || rhs.size() != 4)
-    {
-        throw std::invalid_argument("one or both of the inputs did not have a length of 4");
-    }
-    util::tuple output;
-    for (int i = 0; i < lhs.size(); i++)
-    {
-        output.push_back(lhs[i] + rhs[i]);
-    }
-    return output;
+    this->_x = x;
+    this->_y = y;
+    this->_z = z;
+    this->_w = w;
 }
 
-util::tuple util::tuple_sub(const util::tuple &lhs, const util::tuple &rhs)
+double Tuple::x() const
 {
-    if (lhs.size() != 4 || rhs.size() != 4)
-    {
-        throw std::invalid_argument("one or both of the inputs did not have a length of 4");
-    }
-    util::tuple output;
-    for (int i = 0; i < lhs.size(); i++)
-    {
-        output.push_back(lhs[i] - rhs[i]);
-    }
-    return output;
+    return _x;
 }
 
-util::tuple util::tuple_negate(const util::tuple &t)
+double Tuple::y() const
 {
-    util::tuple output;
-    for (const auto elem : t)
-    {
-        output.push_back(-elem);
-    }
-    return output;
+    return _y;
 }
 
-bool util::tuple_equal(const util::tuple &lhs, const util::tuple &rhs)
+double Tuple::z() const
 {
-    if (lhs.size() != rhs.size())
-    {
-        return false;
-    }
-    for (int i = 0; i < lhs.size(); ++i)
-    {
-        auto diff = abs(lhs[i] - rhs[i]);
-        if (diff > COMPARE_EPSILON)
-        {
-            return false;
-        }
-    }
-    return true;
+    return _z;
 }
 
-util::tuple util::tuple_multiply(const util::tuple &t, double scalar)
+double Tuple::w() const
 {
-    util::tuple output;
-    for (const auto elem : t)
-    {
-        output.push_back(elem * scalar);
-    }
-    return output;
+    return _w;
 }
 
-util::tuple util::tuple_divide(const util::tuple &t, double scalar)
+Tuple Tuple::sub(const Tuple &other) const
 {
-    return util::tuple_multiply(t, 1 / scalar);
+    return Tuple(
+        this->x() - other.x(),
+        this->y() - other.y(),
+        this->z() - other.z(),
+        this->w() - other.w());
 }
 
-double util::tuple_magnitude(const util::tuple &t)
+Tuple Tuple::add(const Tuple &other) const
 {
-    double sum_of_squares = 0;
-    for (const auto elem : t)
-    {
-        sum_of_squares += elem * elem;
-    }
-    return sqrt(sum_of_squares);
+    return Tuple(
+        this->x() + other.x(),
+        this->y() + other.y(),
+        this->z() + other.z(),
+        this->w() + other.w());
 }
 
-util::tuple util::tuple_normalize(const util::tuple &t)
+bool Tuple::eq(const Tuple &other) const
 {
-    auto const magnitude = util::tuple_magnitude(t);
-    return util::tuple_divide(t, magnitude);
+    return abs(this->x() - other.x()) < COMPARE_EPSILON &&
+           abs(this->y() - other.y()) < COMPARE_EPSILON &&
+           abs(this->z() - other.z()) < COMPARE_EPSILON &&
+           abs(this->w() - other.w()) < COMPARE_EPSILON;
 }
 
-double util::tuple_dot(const util::tuple &lhs, const util::tuple &rhs)
+Tuple Tuple::negate() const
 {
-    if (lhs.size() != 4 || rhs.size() != 4)
-    {
-        throw std::invalid_argument("one or both of the inputs did not have a length of 4");
-    }
-    double output = 0;
-    for (int i = 0; i < lhs.size(); ++i)
-    {
-        output += lhs[i] * rhs[i];
-    }
-    return output;
+    return Tuple(-this->x(), -this->y(), -this->z(), -this->w());
 }
 
-util::tuple util::tuple_cross(const util::tuple &lhs, const util::tuple &rhs)
+Tuple Tuple::multiply(double scalar) const
 {
-    double x_comp = (lhs[1] * rhs[2]) - (lhs[2] * rhs[1]);
-    double y_comp = (lhs[2] * rhs[0]) - (lhs[0] * rhs[2]);
-    double z_comp = (lhs[0] * rhs[1]) - (lhs[1] * rhs[0]);
-    return util::create_vector(x_comp, y_comp, z_comp);
+    return Tuple(this->x() * scalar, this->y() * scalar, this->z() * scalar, this->w() * scalar);
 }
 
-util::tuple util::create_point(double x, double y, double z)
+Tuple Tuple::divide(double scalar) const
 {
-    util::tuple output = {x, y, z, 1};
-    return output;
+    return this->multiply(1 / scalar);
 }
 
-util::tuple util::create_vector(double x, double y, double z)
+std::ostream &operator<<(std::ostream &os, const Tuple &obj)
 {
-    util::tuple output = {x, y, z, 0};
-    return output;
+    os << "x=" << obj.x() << ", y=" << obj.y() << ", z=" << obj.z() << ", w=" << obj.w();
 }
+

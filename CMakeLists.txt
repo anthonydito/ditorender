@@ -23,11 +23,22 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(
   util_tuple_test
-  src/util/tuple_Test.cpp
+  src/util/tuple_test.cpp
   src/util/tuple.cpp
+  src/util/vector.cpp
+  src/util/point.cpp
 )
 target_link_libraries(
   util_tuple_test
+  gtest_main
+)
+add_executable(
+  util_color_test
+  src/util/color_test.cpp
+  src/util/color.cpp
+)
+target_link_libraries(
+  util_color_test
   gtest_main
 )
 

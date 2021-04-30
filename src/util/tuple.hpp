@@ -1,23 +1,37 @@
 #ifndef DITO_UTIL_TUPLE
 #define DITO_UTIL_TUPLE
 
-#include <vector>
+#include <ostream>
 
 namespace dito::util
 {
-    using tuple = std::vector<double>;
-    tuple tuple_add(const tuple &lfs, const tuple &rhs);
-    tuple tuple_sub(const tuple &lfs, const tuple &rhs);
-    tuple tuple_negate(const tuple &t);
-    bool tuple_equal(const tuple &lfs, const tuple &rhs);
-    double tuple_magnitude(const tuple &t);
-    double tuple_dot(const tuple &lhs, const tuple &rhs);
-    tuple tuple_cross(const tuple &lhs, const tuple &rhs);
-    tuple tuple_normalize(const tuple &t);
-    tuple tuple_multiply(const tuple &t, const double scalar);
-    tuple tuple_divide(const tuple &t, const double scalar);
-    tuple create_point(double x, double y, double z);
-    tuple create_vector(double x, double y, double z);
+
+    class Vector;
+
+    class Tuple 
+    {
+        public:
+            Tuple(double, double, double, double);
+            double x() const;
+            double y() const;
+            double z() const;
+            double w() const;
+            Tuple sub(const Tuple &) const;
+            Tuple add(const Tuple &) const;
+            bool eq(const Tuple &) const;
+            Tuple negate() const;
+            Tuple multiply(double) const;
+            Tuple divide(double) const;
+            Vector to_vector() const;
+
+        private:
+            double _x;
+            double _y;
+            double _z;
+            double _w;
+    };
 };
+
+std::ostream& operator<<(std::ostream& os, const dito::util::Tuple& obj);
 
 #endif
