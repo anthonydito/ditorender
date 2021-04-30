@@ -79,4 +79,3 @@ std::ostream &operator<<(std::ostream &os, const Tuple &obj)
 {
     os << "x=" << obj.x() << ", y=" << obj.y() << ", z=" << obj.z() << ", w=" << obj.w();
 }
-
