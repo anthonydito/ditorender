@@ -6,7 +6,15 @@ enable_testing()
 
 set (CMAKE_CXX_STANDARD 17)
 
-add_executable(ditorender main.cpp src/util/tuple.cpp)
+add_executable(
+  ditorender 
+  main.cpp 
+  src/util/tuple.cpp 
+  src/util/color.cpp
+  src/util/point.cpp
+  src/util/vector.cpp
+  src/drawing/canvas.cpp
+)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
@@ -41,6 +49,17 @@ target_link_libraries(
   util_color_test
   gtest_main
 )
+add_executable(
+  drawing_canvas_test
+  src/drawing/canvas_test.cpp
+  src/drawing/canvas.cpp
+  src/util/color.cpp
+)
+target_link_libraries(
+  drawing_canvas_test
+  gtest_main
+)
 
 include(GoogleTest)
 gtest_discover_tests(util_tuple_test)
+gtest_discover_tests(drawing_canvas_test)
