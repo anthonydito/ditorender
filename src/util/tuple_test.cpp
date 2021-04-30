@@ -10,21 +10,21 @@ TEST(Tuples, EqualityTrue)
 {
     Point p1(5.2, 3.2, 54.0);
     Point p2(5.2, 3.2, 54.0);
-    EXPECT_TRUE(p1.eq(p2));
+    EXPECT_TRUE(p1 == p2);
 }
 
 TEST(Tuples, EqualityFalse)
 {
     Point p1(5.2, 3.2, 54.0);
     Point p2(5.2, 3.2, 54.001);
-    EXPECT_FALSE(p1.eq(p2));
+    EXPECT_FALSE(p1 == p2);
 }
 
 TEST(Tuples, EqualityTest2)
 {
     Vector v1(-1, 2, -3);
     Vector v2(-1, 2, -3);
-    EXPECT_TRUE(v1.eq(v2));
+    EXPECT_TRUE(v1 == v2);
 }
 
 TEST(Tuples, CreatePoint)
@@ -51,7 +51,7 @@ TEST(Tuples, AddTuples)
     Point a1(3, -2, 5);
     Vector a2(-2, 3, 1);
     Point expected(1, 1, 6);
-    auto add_output = a1.add(a2);
+    auto add_output = a1 + a2;
     EXPECT_TRUE(add_output.eq(expected));
 }
 
@@ -68,7 +68,7 @@ TEST(Tuples, SubtractVectorFromPoint)
     Point p(3, 2, 1);
     Vector v(5, 6, 7);
     Point expected(-2, -4, -6);
-    EXPECT_TRUE(expected.eq(p.sub(v)));
+    EXPECT_TRUE(expected.eq(p - v));
 }
 
 TEST(Tuples, SubtractTwoVectors)
@@ -186,8 +186,6 @@ TEST(Tuples, Cross)
     Vector b(2, 3, 4);
     auto cross1 = a.cross(b);
     auto cross2 = b.cross(a);
-    std::cout << cross1.x() << std::endl;
-    std::cout << cross2.x() << std::endl;
     EXPECT_TRUE(Vector(-1, 2, -1).eq(cross1));
     EXPECT_TRUE(Vector(1, -2, 1).eq(cross2));
 }

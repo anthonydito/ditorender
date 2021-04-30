@@ -8,30 +8,34 @@ namespace dito::util
 
     class Vector;
 
-    class Tuple 
+    class Tuple
     {
-        public:
-            Tuple(double, double, double, double);
-            double x() const;
-            double y() const;
-            double z() const;
-            double w() const;
-            Tuple sub(const Tuple &) const;
-            Tuple add(const Tuple &) const;
-            bool eq(const Tuple &) const;
-            Tuple negate() const;
-            Tuple multiply(double) const;
-            Tuple divide(double) const;
-            Vector to_vector() const;
+    public:
+        Tuple(double, double, double, double);
+        double x() const;
+        double y() const;
+        double z() const;
+        double w() const;
+        Tuple sub(const Tuple &) const;
+        Tuple add(const Tuple &) const;
+        bool eq(const Tuple &) const;
+        Tuple negate() const;
+        Tuple multiply(double) const;
+        Tuple divide(double) const;
+        Vector to_vector() const;
 
-        private:
-            double _x;
-            double _y;
-            double _z;
-            double _w;
+        Tuple operator+(Tuple const &other);
+        Tuple operator-(Tuple const &other);
+        bool operator==(Tuple const &other);
+
+    private:
+        double _x;
+        double _y;
+        double _z;
+        double _w;
     };
 };
 
-std::ostream& operator<<(std::ostream& os, const dito::util::Tuple& obj);
+std::ostream &operator<<(std::ostream &os, const dito::util::Tuple &obj);
 
 #endif
