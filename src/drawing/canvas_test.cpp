@@ -67,3 +67,23 @@ TEST(Canvas, PPMBody)
     EXPECT_EQ(lines[4], "0 0 0 0 0 0 0 128 0 0 0 0 0 0 0");
     EXPECT_EQ(lines[5], "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255");
 }
+
+TEST(Canvas, PPMOverflow)
+{
+    Canvas c(10, 2);
+    dito::util::Color settingColor(1, 0.8, 0.6);
+    for (int i = 0; i < c.width(); ++i)
+    {
+        for (int j = 0; j < c.height(); ++j)
+        {
+            c.set_pixel(i, j, settingColor);
+        }
+    }
+    std::string ppm = c.to_ppm();
+    auto lines = string_to_lines(ppm);
+    EXPECT_LE(lines[3].size(), 70);
+    EXPECT_EQ(lines[3], "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204");
+    EXPECT_EQ(lines[4], "153 255 204 153 255 204 153 255 204 153 255 204 153");
+    EXPECT_EQ(lines[5], "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204");
+    EXPECT_EQ(lines[6], "153 255 204 153 255 204 153 255 204 153 255 204 153");
+}

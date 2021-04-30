@@ -68,6 +68,7 @@ std::string Canvas::to_ppm()
                     curr_size = 0;
                 } else if (curr_size != 0) {
                     row_data << " ";
+                    curr_size += 1;
                 }
                 row_data << number_to_write;
                 curr_size += number_to_write.size();
