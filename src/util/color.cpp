@@ -6,6 +6,19 @@ using namespace dito::util;
 
 const double COMPARE_EPSILON = 0.000001;
 
+int clamp_double_to_255(double input)
+{
+    double multiplied = input * 255;
+    if (multiplied > 255)
+    {
+        return 255;
+    } else if (multiplied < 0)
+    {
+        return 0;
+    }
+    return round(multiplied);
+}
+
 Color::Color(double red, double green, double blue)
 {
     this->_red = red;
@@ -26,6 +39,21 @@ double Color::green() const
 double Color::blue() const
 {
     return _blue;
+}
+
+int Color::red_255() const
+{
+    return clamp_double_to_255(this->red());
+}
+
+int Color::green_255() const
+{
+    return clamp_double_to_255(this->green());
+}
+
+int Color::blue_255() const
+{
+    return clamp_double_to_255(this->blue());
 }
 
 Color Color::add(Color const &other) const

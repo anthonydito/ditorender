@@ -10,6 +10,9 @@ namespace dito::util
         double red() const;
         double green() const;
         double blue() const;
+        int red_255() const;
+        int green_255() const;
+        int blue_255() const;
         Color add(Color const &other) const;
         Color sub(Color const &other) const;
         Color mult(double scalar) const;
