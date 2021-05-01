@@ -39,6 +39,10 @@ dito::util::Color Canvas::pixel(int x, int y) const
 
 void Canvas::set_pixel(int x, int y, dito::util::Color color)
 {
+    if (x < 0 || x >= this->width() || y < 0 || y >= this->height()) {
+        // Out of bounds.
+        return;
+    }
     this->_pixels[x][y] = color;
 }
 

@@ -13,6 +13,8 @@ namespace dito::util {
             Vector normalize() const;
             double dot(const Vector &) const;
             Vector cross(const Vector &) const;
+
+            Vector operator*(double scalar) const;
     };
 }
 

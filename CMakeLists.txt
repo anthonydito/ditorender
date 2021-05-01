@@ -39,6 +39,17 @@ add_executable(
   src/sim/projectile.cpp
 )
 add_executable(
+  demo_draw_projectile
+  src/demo/draw_projectile.cpp
+  src/util/tuple.cpp
+  src/util/vector.cpp
+  src/util/point.cpp
+  src/util/color.cpp
+  src/sim/environment.cpp
+  src/sim/projectile.cpp
+  src/drawing/canvas.cpp
+)
+add_executable(
   util_tuple_test
   src/util/tuple_test.cpp
   src/util/tuple.cpp

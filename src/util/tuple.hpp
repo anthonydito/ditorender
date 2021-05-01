@@ -29,6 +29,7 @@ namespace dito::util
         Tuple operator+(Tuple const &other) const;
         Tuple operator-(Tuple const &other) const;
         bool operator==(Tuple const &other) const;
+        Tuple operator*(double scalar) const;
 
     private:
         double _x;

@@ -78,6 +78,7 @@ Tuple Tuple::divide(double scalar) const
 std::ostream &operator<<(std::ostream &os, const Tuple &obj)
 {
     os << "x=" << obj.x() << ", y=" << obj.y() << ", z=" << obj.z() << ", w=" << obj.w();
+    return os;
 }
 
 Tuple Tuple::operator+(Tuple const &other) const
@@ -93,4 +94,9 @@ Tuple Tuple::operator-(Tuple const &other) const
 bool Tuple::operator==(Tuple const &other) const
 {
     return this->eq(other);
+}
+
+Tuple Tuple::operator*(double scalar) const
+{
+    return this->multiply(scalar);
 }

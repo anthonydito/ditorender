@@ -48,3 +48,8 @@ Vector Vector::cross(const Vector &other) const {
     double z_comp = (this->x() * other.y()) - (this->y() * other.x());
     return Vector(x_comp, y_comp, z_comp);
 }
+
+Vector Vector::operator*(double scalar) const
+{
+    return this->multiply(scalar).to_vector();
+}
