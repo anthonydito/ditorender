@@ -30,6 +30,15 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(
+  demo_shoot_projectile
+  src/demo/shoot_projectile.cpp
+  src/util/tuple.cpp
+  src/util/vector.cpp
+  src/util/point.cpp
+  src/sim/environment.cpp
+  src/sim/projectile.cpp
+)
+add_executable(
   util_tuple_test
   src/util/tuple_test.cpp
   src/util/tuple.cpp

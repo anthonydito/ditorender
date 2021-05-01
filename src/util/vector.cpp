@@ -5,6 +5,8 @@
 
 using namespace dito::util;
 
+Vector::Vector() : Vector(0, 0, 0) {}
+
 Vector::Vector(double x, double y, double z) : Tuple(x, y, z, 0) {}
 
 Vector Tuple::to_vector() const

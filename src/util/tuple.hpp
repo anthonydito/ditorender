@@ -7,6 +7,7 @@ namespace dito::util
 {
 
     class Vector;
+    class Point;
 
     class Tuple
     {
@@ -23,6 +24,7 @@ namespace dito::util
         Tuple multiply(double) const;
         Tuple divide(double) const;
         Vector to_vector() const;
+        Point to_point() const;
 
         Tuple operator+(Tuple const &other) const;
         Tuple operator-(Tuple const &other) const;

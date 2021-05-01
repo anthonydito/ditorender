@@ -7,6 +7,7 @@ namespace dito::util {
     class Vector : public dito::util::Tuple
     {
         public:
+            Vector();
             Vector(double, double, double);
             double magnitude() const;
             Vector normalize() const;

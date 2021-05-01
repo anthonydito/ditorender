@@ -87,3 +87,11 @@ TEST(Canvas, PPMOverflow)
     EXPECT_EQ(lines[5], "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204");
     EXPECT_EQ(lines[6], "153 255 204 153 255 204 153 255 204 153 255 204 153");
 }
+
+TEST(Canvas, LastCharacterNewline)
+{
+    Canvas c(5, 3);
+    std::string ppm = c.to_ppm();
+    char last_char = ppm.back();
+    EXPECT_EQ(last_char, '\n');
+}
