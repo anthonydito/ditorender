@@ -83,6 +83,7 @@ add_executable(
   util_matrix_test
   src/util/matrix_test.cpp
   src/util/matrix.cpp
+  src/util/tuple.cpp
 )
 target_link_libraries(
   util_matrix_test

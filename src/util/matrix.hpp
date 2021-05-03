@@ -19,11 +19,13 @@ namespace dito::util
         bool eq(const Matrix &) const;
         bool neq(const Matrix &) const;
         Matrix mult(const Matrix &) const;
+        Tuple mult(const Tuple &) const;
         void set(int row, int col, double value);
 
         bool operator==(Matrix const &m) const;
         bool operator!=(Matrix const &m) const;
         Matrix operator*(Matrix const &m) const;
+        Tuple operator*(const Tuple &m) const;
 
     private:
         std::vector<std::vector<double>> _rows;

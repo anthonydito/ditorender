@@ -106,6 +106,18 @@ Matrix Matrix::mult(const Matrix &m) const
     return new_matrix;
 }
 
+Tuple Matrix::mult(const Tuple &t) const
+{
+    Matrix new_matrix{
+        {t.x()},
+        {t.y()},
+        {t.z()},
+        {t.w()}
+    };
+    Matrix output = this->mult(new_matrix);
+    return Tuple(output.get(0, 0), output.get(1, 0), output.get(2, 0), output.get(3, 0));
+}
+
 bool Matrix::operator==(const Matrix &m) const
 {
     return this->eq(m);
@@ -124,4 +136,9 @@ void Matrix::set(int row, int col, double value)
 Matrix Matrix::operator*(const Matrix &m) const
 {
     return this->mult(m);
+}
+
+Tuple Matrix::operator*(const Tuple &t) const
+{
+    return this->mult(t);
 }

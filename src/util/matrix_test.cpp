@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "matrix.hpp"
+#include "tuple.hpp"
 
 using namespace dito::util;
 
@@ -95,4 +96,17 @@ TEST(Matrix, Multiply1)
     Matrix multiplied = a * b;
     EXPECT_EQ(multiplied.get(0, 0), 20);
     EXPECT_EQ(multiplied, expected);
+}
+
+TEST(Matrix, MultiplyTuple)
+{
+    Matrix a{
+        {1, 2, 3, 4},
+        {2, 4, 4, 2},
+        {8, 6, 4, 1},
+        {0, 0, 0, 1}
+    };
+    Tuple b(1, 2, 3, 1);
+    Tuple expected(18, 24, 33, 1);
+    EXPECT_EQ(a * b, expected);
 }
