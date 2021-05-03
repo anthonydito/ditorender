@@ -128,6 +128,58 @@ Tuple Matrix::mult(const Tuple &t) const
     return Tuple(output.get(0, 0), output.get(1, 0), output.get(2, 0), output.get(3, 0));
 }
 
+Matrix Matrix::transpose() const
+{
+    Matrix m(this->num_rows(), this->num_cols());
+    for (int row = 0; row < this->num_rows(); ++row)
+    {
+        for (int col = 0; col < this->num_cols(); ++col)
+        {
+            m.set(col, row, this->get(row, col));
+        }
+    }
+    return m;
+}
+
+double Matrix::determinant() const
+{
+    if (this->num_cols() == 2 && this->num_rows() == 2)
+    {
+        return (this->get(0, 0) * this->get(1, 1)) - (this->get(1, 0) * this->get(0, 1));
+    }
+    throw std::invalid_argument("matrix dimensions not valid for determinant");
+}
+
+Matrix Matrix::submatrix(int row_to_remove, int col_to_remove) const {
+    Matrix new_matrix(this->num_rows() - 1, this->num_cols() - 1);
+    for (int row = 0; row < this->num_rows(); ++row)
+    {
+        if (row == row_to_remove)
+        {
+            continue;
+        }
+        for (int col = 0; col < this->num_cols(); ++col)
+        {
+            if (col == col_to_remove)
+            {
+                continue;
+            }
+            int setting_row = row;
+            int setting_col = col;
+            if (row > row_to_remove)
+            {
+                --setting_row;
+            }
+            if (col > col_to_remove)
+            {
+                --setting_col;
+            }
+            new_matrix.set(setting_row, setting_col, this->get(row, col));
+        }
+    }
+    return new_matrix;
+}
+
 bool Matrix::operator==(const Matrix &m) const
 {
     return this->eq(m);

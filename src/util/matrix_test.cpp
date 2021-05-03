@@ -122,3 +122,65 @@ TEST(Matrix, MultiplyByIdentityMatrix)
     Matrix identity_matrix = Matrix::identity_matrix(4);
     EXPECT_EQ(m * identity_matrix, m);
 }
+
+TEST(Matrix, Transpose)
+{
+    Matrix m{
+        {0, 9, 3, 0},
+        {9, 8, 0, 8},
+        {1, 8, 5, 3},
+        {0, 0, 5, 8}
+    };
+    Matrix transposed{
+        {0, 9, 1, 0},
+        {9, 8, 8, 0},
+        {3, 0, 5, 5},
+        {0, 8, 3, 8}
+    };
+    EXPECT_EQ(m.transpose(), transposed);
+}
+
+TEST(Matrix, TranposeIdentity)
+{
+    Matrix m = Matrix::identity_matrix(4);
+    EXPECT_EQ(m, m.transpose());
+}
+
+TEST(Matrix, Determinants)
+{
+    Matrix m{
+        {1, 5},
+        {-3, 2}
+    };
+    EXPECT_EQ(m.determinant(), 17);
+}
+
+TEST(Matrix, Submatrix1)
+{
+    Matrix a{
+        {1, 5, 0},
+        {-3, 2, 7},
+        {0, 6, -3}
+    };
+    Matrix expected{
+        {-3, 2},
+        {0, 6}
+    }; 
+    EXPECT_EQ(a.submatrix(0, 2), expected);
+}
+
+TEST(Matrix, Submatrix2)
+{
+    Matrix m = {
+        {-6, 1, 1, 6},
+        {-8, 5, 8, 6},
+        {-1, 0, 8, 2},
+        {-7, 1, -1, 1}
+    };
+    Matrix expected{
+        {-6, 1, 6},
+        {-8, 8, 6},
+        {-7, -1, 1}
+    };
+    EXPECT_EQ(m.submatrix(2, 1), expected);
+}

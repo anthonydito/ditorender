@@ -13,7 +13,9 @@ namespace dito::util
     public:
         Matrix(std::initializer_list<std::initializer_list<double>>);
         Matrix(int rows, int cols);
+
         static Matrix identity_matrix(int);
+
         double get(int row, int col) const;
         int num_rows() const;
         int num_cols() const;
@@ -21,6 +23,9 @@ namespace dito::util
         bool neq(const Matrix &) const;
         Matrix mult(const Matrix &) const;
         Tuple mult(const Tuple &) const;
+        Matrix transpose() const;
+        Matrix submatrix(int row, int col) const;
+        double determinant() const;
         void set(int row, int col, double value);
 
         bool operator==(Matrix const &m) const;
