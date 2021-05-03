@@ -79,7 +79,17 @@ target_link_libraries(
   drawing_canvas_test
   gtest_main
 )
+add_executable(
+  util_matrix_test
+  src/util/matrix_test.cpp
+  src/util/matrix.cpp
+)
+target_link_libraries(
+  util_matrix_test
+  gtest_main
+)
 
 include(GoogleTest)
 gtest_discover_tests(util_tuple_test)
 gtest_discover_tests(drawing_canvas_test)
+gtest_discover_tests(util_matrix_test)
