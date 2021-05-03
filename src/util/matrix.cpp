@@ -7,6 +7,17 @@ using namespace dito::util;
 
 const double COMPARE_EPSILON = 0.000001;
 
+Matrix Matrix::identity_matrix(int size)
+{
+    Matrix m(size, size);
+
+    for (int i = 0; i < size; ++i)
+    {
+        m.set(i, i, 1);
+    }
+    return m;
+}
+
 Matrix::Matrix(std::initializer_list<std::initializer_list<double>> rows)
 {
     int curr_col_count = -1;
@@ -112,8 +123,7 @@ Tuple Matrix::mult(const Tuple &t) const
         {t.x()},
         {t.y()},
         {t.z()},
-        {t.w()}
-    };
+        {t.w()}};
     Matrix output = this->mult(new_matrix);
     return Tuple(output.get(0, 0), output.get(1, 0), output.get(2, 0), output.get(3, 0));
 }

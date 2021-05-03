@@ -13,6 +13,7 @@ namespace dito::util
     public:
         Matrix(std::initializer_list<std::initializer_list<double>>);
         Matrix(int rows, int cols);
+        static Matrix identity_matrix(int);
         double get(int row, int col) const;
         int num_rows() const;
         int num_cols() const;

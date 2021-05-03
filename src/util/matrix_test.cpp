@@ -110,3 +110,15 @@ TEST(Matrix, MultiplyTuple)
     Tuple expected(18, 24, 33, 1);
     EXPECT_EQ(a * b, expected);
 }
+
+TEST(Matrix, MultiplyByIdentityMatrix)
+{
+    Matrix m{
+        {0, 1, 2, 4},
+        {1, 2, 4, 8},
+        {2, 4, 8, 16},
+        {4, 8, 16, 32}
+    };
+    Matrix identity_matrix = Matrix::identity_matrix(4);
+    EXPECT_EQ(m * identity_matrix, m);
+}
