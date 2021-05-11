@@ -5,7 +5,7 @@
 
 using namespace dito::util;
 
-const double COMPARE_EPSILON = 0.000001;
+const double COMPARE_EPSILON = 0.00001;
 
 Matrix Matrix::identity_matrix(int size)
 {
@@ -151,13 +151,13 @@ double Matrix::determinant() const
     double sum = 0;
     for (int col = 0; col < this->num_cols(); ++col)
     {
-        sum += this->cofactor(0, col) * this->get(0, col);
+        sum += (this->get(0, col) * this->cofactor(0, col));
     }
     return sum;
-
 }
 
-Matrix Matrix::submatrix(int row_to_remove, int col_to_remove) const {
+Matrix Matrix::submatrix(int row_to_remove, int col_to_remove) const
+{
     Matrix new_matrix(this->num_rows() - 1, this->num_cols() - 1);
     for (int row = 0; row < this->num_rows(); ++row)
     {
@@ -187,17 +187,46 @@ Matrix Matrix::submatrix(int row_to_remove, int col_to_remove) const {
     return new_matrix;
 }
 
-double Matrix::minor(int row, int col) const {
+double Matrix::minor(int row, int col) const
+{
     return this->submatrix(row, col).determinant();
 }
 
-double Matrix::cofactor(int row, int col) const {
+double Matrix::cofactor(int row, int col) const
+{
     double minor = this->minor(row, col);
-    if (row + col % 2 == 0) {
+    if ((row + col) % 2 == 0)
+    {
         return minor;
-    } else {
+    }
+    else
+    {
         return -minor;
     }
+}
+
+bool Matrix::is_invertable() const
+{
+    return this->determinant() != 0;
+}
+
+Matrix Matrix::inverse() const
+{
+    if (!this->is_invertable())
+    {
+        throw std::invalid_argument("matrix is not invertable");
+    }
+    auto determinant = this->determinant();
+    Matrix output(this->num_rows(), this->num_cols());
+    for (int row = 0; row < this->num_rows(); ++row)
+    {
+        for (int col = 0; col < this->num_cols(); ++col)
+        {
+            auto c = this->cofactor(row, col);
+            output.set(col, row, c / determinant);
+        }
+    }
+    return output;
 }
 
 bool Matrix::operator==(const Matrix &m) const
@@ -223,4 +252,22 @@ Matrix Matrix::operator*(const Matrix &m) const
 Tuple Matrix::operator*(const Tuple &t) const
 {
     return this->mult(t);
+}
+std::ostream &dito::util::operator<<(std::ostream &os, const Matrix &m)
+{
+    os << std::endl;
+    for (int row = 0; row < m.num_rows(); ++row)
+    {
+        os << "[";
+        for (int col = 0; col < m.num_cols(); ++col)
+        {
+            if (col != 0)
+            {
+                os << ", ";
+            }
+            os << m.get(row, col);
+        }
+        os << "]" << std::endl;
+    }
+    return os;
 }

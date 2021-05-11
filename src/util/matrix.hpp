@@ -29,11 +29,14 @@ namespace dito::util
         double determinant() const;
         double cofactor(int row, int col) const;
         void set(int row, int col, double value);
+        bool is_invertable() const;
+        Matrix inverse() const;
 
         bool operator==(Matrix const &m) const;
         bool operator!=(Matrix const &m) const;
         Matrix operator*(Matrix const &m) const;
         Tuple operator*(const Tuple &m) const;
+        friend std::ostream &operator<<(std::ostream &os, const Matrix &m);
 
     private:
         std::vector<std::vector<double>> _rows;
