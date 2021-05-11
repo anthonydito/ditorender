@@ -25,6 +25,7 @@ namespace dito::util
         Tuple mult(const Tuple &) const;
         Matrix transpose() const;
         Matrix submatrix(int row, int col) const;
+        double minor(int row, int col) const;
         double determinant() const;
         void set(int row, int col, double value);
 

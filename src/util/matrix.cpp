@@ -180,6 +180,14 @@ Matrix Matrix::submatrix(int row_to_remove, int col_to_remove) const {
     return new_matrix;
 }
 
+double Matrix::minor(int row, int col) const {
+    if (this->num_cols() != 3 || this->num_rows() != 3)
+    {
+        throw std::invalid_argument("not correct number of rows or cols");
+    }
+    return this->submatrix(row, col).determinant();
+}
+
 bool Matrix::operator==(const Matrix &m) const
 {
     return this->eq(m);

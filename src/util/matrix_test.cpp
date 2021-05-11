@@ -184,3 +184,15 @@ TEST(Matrix, Submatrix2)
     };
     EXPECT_EQ(m.submatrix(2, 1), expected);
 }
+
+TEST(Matrix, Minor)
+{
+    Matrix a{
+        {3, 5, 0},
+        {2, -1, -7},
+        {6, -1, 5}
+    };
+    Matrix b = a.submatrix(1, 0);
+    EXPECT_EQ(b.determinant(), 25);
+    EXPECT_EQ(a.minor(1, 0), 25);
+}
