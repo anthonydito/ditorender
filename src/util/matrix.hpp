@@ -27,6 +27,7 @@ namespace dito::util
         Matrix submatrix(int row, int col) const;
         double minor(int row, int col) const;
         double determinant() const;
+        double cofactor(int row, int col) const;
         void set(int row, int col, double value);
 
         bool operator==(Matrix const &m) const;

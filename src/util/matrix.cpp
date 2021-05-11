@@ -29,6 +29,7 @@ Matrix::Matrix(std::initializer_list<std::initializer_list<double>> rows)
         }
         else if (curr_col_count != row.size())
         {
+            std::cout << "testing sizes " << curr_col_count << " - " << row.size();
             throw std::invalid_argument("all cols are not the same size");
         }
         std::vector<double> row_vec;
@@ -147,7 +148,13 @@ double Matrix::determinant() const
     {
         return (this->get(0, 0) * this->get(1, 1)) - (this->get(1, 0) * this->get(0, 1));
     }
-    throw std::invalid_argument("matrix dimensions not valid for determinant");
+    double sum = 0;
+    for (int col = 0; col < this->num_cols(); ++col)
+    {
+        sum += this->cofactor(0, col) * this->get(0, col);
+    }
+    return sum;
+
 }
 
 Matrix Matrix::submatrix(int row_to_remove, int col_to_remove) const {
@@ -181,11 +188,16 @@ Matrix Matrix::submatrix(int row_to_remove, int col_to_remove) const {
 }
 
 double Matrix::minor(int row, int col) const {
-    if (this->num_cols() != 3 || this->num_rows() != 3)
-    {
-        throw std::invalid_argument("not correct number of rows or cols");
-    }
     return this->submatrix(row, col).determinant();
+}
+
+double Matrix::cofactor(int row, int col) const {
+    double minor = this->minor(row, col);
+    if (row + col % 2 == 0) {
+        return minor;
+    } else {
+        return -minor;
+    }
 }
 
 bool Matrix::operator==(const Matrix &m) const
