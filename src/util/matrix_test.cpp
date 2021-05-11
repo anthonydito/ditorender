@@ -2,6 +2,7 @@
 
 #include "matrix.hpp"
 #include "tuple.hpp"
+#include "point.hpp"
 
 using namespace dito::util;
 
@@ -312,4 +313,87 @@ TEST(Matrix, Inverse3)
         {-0.02901, -0.14630, -0.10926, 0.12963},
         {0.17778, 0.06667, -0.26667, 0.33333}};
     EXPECT_EQ(a.inverse(), expected);
+}
+
+TEST(Matrix, PuttingTogether1)
+{
+    Matrix a = Matrix::identity_matrix(4);
+    EXPECT_EQ(a.inverse(), a);
+}
+
+TEST(Matrix, PuttingTogether2)
+{
+    Matrix a{
+        {9, 3, 0, 9},
+        {-5, -2, -6, -3},
+        {-4, 9, 6, 4},
+        {-7, 6, 6, 2}};
+    EXPECT_EQ(a * a.inverse(), Matrix::identity_matrix(4));
+}
+
+TEST(Matrix, PuttingTogether3)
+{
+    Matrix a{
+        {9, 3, 0, 9},
+        {-5, -2, -6, -3},
+        {-4, 9, 6, 4},
+        {-7, 6, 6, 2}};
+    EXPECT_EQ(a.transpose().inverse(), a.inverse().transpose());
+}
+
+TEST(Matrix, MultiplyingByTranslation)
+{
+    Matrix translation = Matrix::translation(5, -3, 2);
+    Point p(-3, 4, 5);
+    Point expected(2, 1, 7);
+    EXPECT_EQ(translation * p, expected);
+}
+
+TEST(Matrix, MultiplyingByInverseofTranslation)
+{
+    Matrix translation = Matrix::translation(5, -3, 2);
+    Matrix inverse = translation.inverse();
+    Point p(-3, 4, 5);
+    Point expected(-8, 7, 3);
+    EXPECT_EQ(inverse * p, expected);
+}
+
+TEST(Matrix, TranlsationDoesNotAffectVectors)
+{
+    Matrix translation = Matrix::translation(5, -3, 2);
+    Vector v(-3, 4, 5);
+    EXPECT_EQ(translation * v, v);
+}
+
+TEST(Matrix, ScalingMatrixAppliedToPoint)
+{
+    Matrix transform = Matrix::scaling(2, 3, 4);
+    Point p(-4, 6, 8);
+    Point expected(-8, 18, 32);
+    EXPECT_EQ(transform * p, expected);
+}
+
+TEST(Matrix, ScalingMatrixAppliedToVector)
+{
+    Matrix transform = Matrix::scaling(2, 3, 4);
+    Vector v(-4, 6, 8);
+    Vector expected(-8, 18, 32);
+    EXPECT_EQ(transform * v, expected);
+}
+
+TEST(Matrix, ScalingInverse)
+{
+    Matrix transform = Matrix::scaling(2, 3, 4);
+    Matrix inv = transform.inverse();
+    Vector v = Vector(-4, 6, 8);
+    Vector expected(-2, 2, 2);
+    EXPECT_EQ(inv * v, expected);
+}
+
+TEST(Matrix, Reflection)
+{
+    Matrix transform = Matrix::scaling(-1, 1, 1);
+    Point p(2, 3, 4);
+    Point expected(-2, 3, 4);
+    EXPECT_EQ(transform * p, expected);
 }

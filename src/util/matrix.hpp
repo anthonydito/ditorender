@@ -15,6 +15,8 @@ namespace dito::util
         Matrix(int rows, int cols);
 
         static Matrix identity_matrix(int);
+        static Matrix translation(double, double, double);
+        static Matrix scaling(double, double, double);
 
         double get(int row, int col) const;
         int num_rows() const;

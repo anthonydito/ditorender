@@ -18,6 +18,24 @@ Matrix Matrix::identity_matrix(int size)
     return m;
 }
 
+Matrix Matrix::translation(double x, double y, double z)
+{
+    Matrix start = Matrix::identity_matrix(4);
+    start.set(0, 3, x);
+    start.set(1, 3, y);
+    start.set(2, 3, z);
+    return start;
+}
+
+Matrix Matrix::scaling(double x, double y, double z)
+{
+    Matrix start = Matrix::identity_matrix(4);
+    start.set(0, 0, x);
+    start.set(1, 1, y);
+    start.set(2, 2, z);
+    return start;
+}
+
 Matrix::Matrix(std::initializer_list<std::initializer_list<double>> rows)
 {
     int curr_col_count = -1;
