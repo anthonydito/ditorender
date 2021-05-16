@@ -73,6 +73,18 @@ Matrix Matrix::rotation_z(double radians)
     return start;
 }
 
+Matrix Matrix::shearing(double x_in_y, double x_in_z, double y_in_x, double y_in_z, double z_in_x, double z_in_y)
+{
+    Matrix start = Matrix::identity_matrix(4);
+    start.set(0, 1, x_in_y);
+    start.set(0, 2, x_in_z);
+    start.set(1, 0, y_in_x);
+    start.set(1, 2, y_in_z);
+    start.set(2, 0, z_in_x);
+    start.set(2, 1, z_in_y);
+    return start;
+}
+
 Matrix::Matrix(std::initializer_list<std::initializer_list<double>> rows)
 {
     int curr_col_count = -1;

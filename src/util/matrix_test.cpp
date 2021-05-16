@@ -442,3 +442,51 @@ TEST(Matrix, RotationZ1)
     EXPECT_EQ(half_quarter * p, half_quarter_expected);
     EXPECT_EQ(full_quarter_has, full_quarter_expected);
 }
+
+TEST(Matrix, Shearing1)
+{
+    Matrix transform = Matrix::shearing(1, 0, 0, 0, 0, 0);
+    Point p(2, 3, 4);
+    Point expected(5, 3, 4);
+    EXPECT_EQ(transform * p, expected);
+}
+
+TEST(Matrix, Shearing2)
+{
+    Matrix transform = Matrix::shearing(0, 1, 0, 0, 0, 0);
+    Point p(2, 3, 4);
+    Point expected(6, 3, 4);
+    EXPECT_EQ(transform * p, expected);
+}
+
+TEST(Matrix, Shearing3)
+{
+    Matrix transform = Matrix::shearing(0, 0, 1, 0, 0, 0);
+    Point p(2, 3, 4);
+    Point expected(2, 5, 4);
+    EXPECT_EQ(transform * p, expected);
+}
+
+TEST(Matrix, Shearing4)
+{
+    Matrix transform = Matrix::shearing(0, 0, 0, 1, 0, 0);
+    Point p(2, 3, 4);
+    Point expected(2, 7, 4);
+    EXPECT_EQ(transform * p, expected);
+}
+
+TEST(Matrix, Shearing5)
+{
+    Matrix transform = Matrix::shearing(0, 0, 0, 0, 1, 0);
+    Point p(2, 3, 4);
+    Point expected(2, 3, 6);
+    EXPECT_EQ(transform * p, expected);
+}
+
+TEST(Matrix, Shearing6)
+{
+    Matrix transform = Matrix::shearing(0, 0, 0, 0, 0, 1);
+    Point p(2, 3, 4);
+    Point expected(2, 3, 7);
+    EXPECT_EQ(transform * p, expected);
+}
