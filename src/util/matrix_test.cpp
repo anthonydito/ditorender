@@ -490,3 +490,31 @@ TEST(Matrix, Shearing6)
     Point expected(2, 3, 7);
     EXPECT_EQ(transform * p, expected);
 }
+
+TEST(Matrix, Sequence1)
+{
+    Point p(1, 0, 1);
+    Matrix A = Matrix::rotation_x(M_PI / 2);
+    Matrix B = Matrix::scaling(5, 5, 5);
+    Matrix C = Matrix::translation(10, 5, 7);
+    Point p2 = (A * p).to_point();
+    Point p2_expected = Point(1, -1, 0);
+    EXPECT_EQ(p2, p2_expected);
+    Point p3 = (B * p2).to_point();
+    Point p3_expected(5, -5, 0);
+    EXPECT_EQ(p3, p3_expected);
+    Point p4 = (C * p3).to_point();
+    Point p4_expected(15, 0, 7);
+    EXPECT_EQ(p4, p4_expected);
+}
+
+TEST(Matrix, Sequence2)
+{
+    Point p(1, 0, 1);
+    Matrix A = Matrix::rotation_x(M_PI / 2);
+    Matrix B = Matrix::scaling(5, 5, 5);
+    Matrix C = Matrix::translation(10, 5, 7);
+    Matrix T = C * B * A;
+    Point p_expexted = Point(15, 0, 7);
+    EXPECT_EQ(T * p, p_expexted);
+}
