@@ -2,6 +2,7 @@
 
 #include <initializer_list>
 #include <iostream>
+#include <cmath>
 
 using namespace dito::util;
 
@@ -33,6 +34,42 @@ Matrix Matrix::scaling(double x, double y, double z)
     start.set(0, 0, x);
     start.set(1, 1, y);
     start.set(2, 2, z);
+    return start;
+}
+
+Matrix Matrix::rotation_x(double radians)
+{
+    Matrix start = Matrix::identity_matrix(4);
+    double cos_r = cos(radians);
+    double sin_r = sin(radians);
+    start.set(1, 1, cos_r);
+    start.set(2, 2, cos_r);
+    start.set(2, 1, sin_r);
+    start.set(1, 2, -sin_r);
+    return start;
+}
+
+Matrix Matrix::rotation_y(double radians)
+{
+    Matrix start = Matrix::identity_matrix(4);
+    double cos_r = cos(radians);
+    double sin_r = sin(radians);
+    start.set(0, 0, cos_r);
+    start.set(0, 2, sin_r);
+    start.set(2, 0, -sin_r);
+    start.set(2, 2, cos_r);
+    return start;
+}
+
+Matrix Matrix::rotation_z(double radians)
+{
+    Matrix start = Matrix::identity_matrix(4);
+    double cos_r = cos(radians);
+    double sin_r = sin(radians);
+    start.set(0, 0, cos_r);
+    start.set(0, 1, -sin_r);
+    start.set(1, 0, sin_r);
+    start.set(1, 1, cos_r);
     return start;
 }
 
@@ -271,6 +308,7 @@ Tuple Matrix::operator*(const Tuple &t) const
 {
     return this->mult(t);
 }
+
 std::ostream &dito::util::operator<<(std::ostream &os, const Matrix &m)
 {
     os << std::endl;

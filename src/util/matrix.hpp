@@ -2,6 +2,7 @@
 #define DITO_UTIL_MATRIX
 
 #include "tuple.hpp"
+#include "point.hpp"
 
 #include <initializer_list>
 #include <vector>
@@ -17,6 +18,9 @@ namespace dito::util
         static Matrix identity_matrix(int);
         static Matrix translation(double, double, double);
         static Matrix scaling(double, double, double);
+        static Matrix rotation_x(double);
+        static Matrix rotation_y(double);
+        static Matrix rotation_z(double);
 
         double get(int row, int col) const;
         int num_rows() const;

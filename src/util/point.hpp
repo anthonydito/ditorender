@@ -12,6 +12,7 @@ namespace dito::util {
             Point(double, double, double);
 
             Point operator+(Vector const &v) const;
+            friend std::ostream &operator<<(std::ostream &os, const Point &p);
     };
 }
 

@@ -19,3 +19,9 @@ Point Tuple::to_point() const
     }
     return Point(this->x(), this->y(), this->z());
 }
+
+std::ostream &dito::util::operator<<(std::ostream &os, const Point &p)
+{
+    os << "Point: x=" << p.x() << ", y=" << p.y() << ", z=" << p.z() << ", z=" << p.z() << std::endl;
+    return os;
+}

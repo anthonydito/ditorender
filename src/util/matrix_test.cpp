@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <cmath>
 
 #include "matrix.hpp"
 #include "tuple.hpp"
@@ -396,4 +397,48 @@ TEST(Matrix, Reflection)
     Point p(2, 3, 4);
     Point expected(-2, 3, 4);
     EXPECT_EQ(transform * p, expected);
+}
+
+TEST(Matrix, RotationX1)
+{
+    Point p(0, 1, 0);
+    Matrix half_quarter = Matrix::rotation_x(M_PI / 4);
+    Matrix full_quarter = Matrix::rotation_x(M_PI / 2);
+    Point half_quarter_expected(0, sqrt(2) / 2, sqrt(2) / 2);
+    Point full_quarter_expected(0, 0, 1);
+    EXPECT_EQ(half_quarter * p, half_quarter_expected);
+    EXPECT_EQ(full_quarter * p, full_quarter_expected);
+}
+
+TEST(Matrix, RotationX1Inverse)
+{
+    Point p(0, 1, 0);
+    Matrix half_quarter = Matrix::rotation_x(M_PI / 4);
+    Matrix inverse = half_quarter.inverse();
+    Point expected(0, sqrt(2) / 2, -sqrt(2) / 2);
+    EXPECT_EQ(inverse * p, expected);
+}
+
+TEST(Matrix, RotationY1)
+{
+    Point p(0, 0, 1);
+    Matrix half_quarter = Matrix::rotation_y(M_PI / 4);
+    Matrix full_quarter = Matrix::rotation_y(M_PI / 2);
+    Point half_quarter_expected(sqrt(2) / 2, 0, sqrt(2) / 2);
+    Point full_quarter_expected(1, 0, 0);
+    auto full_quarter_has = full_quarter * p;
+    EXPECT_EQ(half_quarter * p, half_quarter_expected);
+    EXPECT_EQ(full_quarter_has, full_quarter_expected);
+}
+
+TEST(Matrix, RotationZ1)
+{
+    Point p(0, 1, 0);
+    Matrix half_quarter = Matrix::rotation_z(M_PI / 4);
+    Matrix full_quarter = Matrix::rotation_z(M_PI / 2);
+    Point half_quarter_expected(-sqrt(2) / 2, sqrt(2) / 2, 0);
+    Point full_quarter_expected(-1, 0, 0);
+    auto full_quarter_has = full_quarter * p;
+    EXPECT_EQ(half_quarter * p, half_quarter_expected);
+    EXPECT_EQ(full_quarter_has, full_quarter_expected);
 }

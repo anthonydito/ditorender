@@ -3,15 +3,19 @@
 
 #include <ostream>
 
+
 namespace dito::util
 {
 
     class Vector;
     class Point;
+    class Matrix;
 
     class Tuple
     {
     public:
+        Tuple(const Point p);
+        Tuple(const Tuple &t);
         Tuple(double, double, double, double);
         double x() const;
         double y() const;
@@ -30,6 +34,7 @@ namespace dito::util
         Tuple operator-(Tuple const &other) const;
         bool operator==(Tuple const &other) const;
         Tuple operator*(double scalar) const;
+        friend std::ostream &operator<<(std::ostream &os, const Tuple &t);
 
     private:
         double _x;

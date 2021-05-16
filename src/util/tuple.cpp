@@ -1,10 +1,27 @@
 #include "tuple.hpp"
+#include "point.hpp"
 
 #include <cmath>
 
 using namespace dito::util;
 
 const double COMPARE_EPSILON = 0.000001;
+
+Tuple::Tuple(const Point p)
+{
+    this->_x = p.x();
+    this->_y = p.y();
+    this->_z = p.z();
+    this->_z = p.w();
+}
+
+Tuple::Tuple(const Tuple &t)
+{
+    this->_x = t.x();
+    this->_y = t.y();
+    this->_z = t.z();
+    this->_z = t.w();
+}
 
 Tuple::Tuple(double x, double y, double z, double w)
 {
@@ -99,4 +116,10 @@ bool Tuple::operator==(Tuple const &other) const
 Tuple Tuple::operator*(double scalar) const
 {
     return this->multiply(scalar);
+}
+
+std::ostream &dito::util::operator<<(std::ostream &os, const Tuple &t)
+{
+    os << "Tuple: x=" <<t.x() << ", y=" << t.y() << ", z=" << t.z() << ", w=" << t.w() << std::endl;
+    return os;
 }
