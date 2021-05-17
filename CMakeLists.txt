@@ -50,6 +50,15 @@ add_executable(
   src/drawing/canvas.cpp
 )
 add_executable(
+  demo_draw_faces
+  src/demo/hand_faces.cpp
+  src/util/tuple.cpp
+  src/util/point.cpp
+  src/util/matrix.cpp
+  src/drawing/canvas.cpp
+  src/util/color.cpp
+)
+add_executable(
   util_tuple_test
   src/util/tuple_test.cpp
   src/util/tuple.cpp
@@ -91,8 +100,21 @@ target_link_libraries(
   util_matrix_test
   gtest_main
 )
+add_executable(
+  physics_ray_test
+  src/physics/ray_test.cpp
+  src/util/vector.cpp
+  src/util/tuple.cpp
+  src/util/point.cpp
+  src/physics/ray.cpp
+)
+target_link_libraries(
+  physics_ray_test
+  gtest_main
+)
 
 include(GoogleTest)
 gtest_discover_tests(util_tuple_test)
 gtest_discover_tests(drawing_canvas_test)
 gtest_discover_tests(util_matrix_test)
+gtest_discover_tests(physics_ray_test)

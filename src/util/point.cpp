@@ -22,6 +22,6 @@ Point Tuple::to_point() const
 
 std::ostream &dito::util::operator<<(std::ostream &os, const Point &p)
 {
-    os << "Point: x=" << p.x() << ", y=" << p.y() << ", z=" << p.z() << ", z=" << p.z() << std::endl;
+    os << "Point: x=" << p.x() << ", y=" << p.y() << ", z=" << p.z() << ", w=" << p.w() << std::endl;
     return os;
 }

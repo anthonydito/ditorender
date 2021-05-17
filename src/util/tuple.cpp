@@ -20,7 +20,7 @@ Tuple::Tuple(const Tuple &t)
     this->_x = t.x();
     this->_y = t.y();
     this->_z = t.z();
-    this->_z = t.w();
+    this->_w = t.w();
 }
 
 Tuple::Tuple(double x, double y, double z, double w)
