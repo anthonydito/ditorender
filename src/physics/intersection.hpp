@@ -12,6 +12,9 @@ namespace dito::physics
 
         double t() const;
         const dito::util::Sphere &object() const;
+        bool eq(Intersection const &other) const;
+        bool operator==(Intersection const &other) const;
+        bool operator!=(Intersection const &other) const;
 
     private:
         const dito::util::Sphere &_object;

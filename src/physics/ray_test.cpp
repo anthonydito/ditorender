@@ -96,3 +96,46 @@ TEST(Ray, AggregatingIntersections)
     EXPECT_NE(xs.items()[0].object(), other);
     EXPECT_EQ(xs.items()[1].object(), s);
 }
+
+TEST(Ray, HitAllPositive)
+{
+    Sphere s;
+    Intersection i1(1, s);
+    Intersection i2(2, s);
+    Intersections xs({i1, i2});
+    auto i = xs.hit();
+    EXPECT_EQ(i1, i);
+}
+
+TEST(Ray, HitSomeNegative)
+{
+    Sphere s;
+    Intersection i1(-1, s);
+    Intersection i2(1, s);
+    Intersections xs({i2, i1});
+    auto i = xs.hit();
+    EXPECT_EQ(i2, i);
+}
+
+TEST(Ray, HitAllNegative)
+{
+    Sphere s;
+    Intersection i1(-1, s);
+    Intersection i2(-2, s);
+    Intersections xs({i1, i2});
+    auto i = xs.hit();
+    EXPECT_FALSE(i.has_value());
+}
+
+TEST(Ray, HitIsAlwaysNonNegativeIntersection)
+{
+    Sphere s;
+    Intersection i1(5, s);
+    Intersection i2(7, s);
+    Intersection i3(-3, s);
+    Intersection i4(2, s);
+    Intersections xs({i1, i2, i3, i4});
+    auto i = xs.hit();
+    EXPECT_TRUE(i.has_value());
+    EXPECT_EQ(*i, i4);
+}

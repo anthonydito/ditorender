@@ -3,6 +3,7 @@
 
 #include <initializer_list>
 #include <vector>
+#include <optional>
 #include "intersection.hpp"
 
 namespace dito::physics
@@ -16,6 +17,7 @@ namespace dito::physics
             void push_back(Intersection);
             std::vector<Intersection> items() const;
             int size() const;
+            std::optional<Intersection> hit() const;
             Intersection operator[](int i) const;
 
         private:
