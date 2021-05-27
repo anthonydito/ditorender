@@ -26,9 +26,7 @@ void Intersections::push_back(Intersection intersection)
 
 std::optional<Intersection> Intersections::hit() const
 {
-
     std::optional<Intersection> curr_smallest = {};
-
     for (Intersection i : items())
     {
         if (i.t() < 0)
@@ -47,7 +45,6 @@ std::optional<Intersection> Intersections::hit() const
             curr_smallest.emplace(i);
         }
     }
-
     return curr_smallest;
 }
 
