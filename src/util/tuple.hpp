@@ -26,6 +26,7 @@ namespace dito::util
         bool eq(const Tuple &) const;
         Tuple negate() const;
         Tuple multiply(double) const;
+        double dot(const Tuple &other) const;
         Tuple divide(double) const;
         Vector to_vector() const;
         Point to_point() const;

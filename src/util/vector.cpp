@@ -32,16 +32,6 @@ Vector Vector::normalize() const
     return this->divide(this->magnitude()).to_vector();
 }
 
-double Vector::dot(const Vector &other) const 
-{
-    double output = 0;
-    output += this->x() * other.x();
-    output += this->y() * other.y();
-    output += this->z() * other.z();
-    output += this->w() * other.w();
-    return output;
-}
-
 Vector Vector::cross(const Vector &other) const {
     double x_comp = (this->y() * other.z()) - (this->z() * other.y());
     double y_comp = (this->z() * other.x()) - (this->x() * other.z());
@@ -52,4 +42,9 @@ Vector Vector::cross(const Vector &other) const {
 Vector Vector::operator*(double scalar) const
 {
     return this->multiply(scalar).to_vector();
+}
+
+Vector Vector::operator-(Vector const &v) const
+{
+    return this->sub(v).to_vector();
 }

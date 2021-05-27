@@ -123,3 +123,13 @@ std::ostream &dito::util::operator<<(std::ostream &os, const Tuple &t)
     os << "Tuple: x=" <<t.x() << ", y=" << t.y() << ", z=" << t.z() << ", w=" << t.w() << std::endl;
     return os;
 }
+
+double Tuple::dot(const Tuple &other) const 
+{
+    double output = 0;
+    output += this->x() * other.x();
+    output += this->y() * other.y();
+    output += this->z() * other.z();
+    output += this->w() * other.w();
+    return output;
+}

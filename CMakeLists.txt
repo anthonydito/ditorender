@@ -106,6 +106,7 @@ add_executable(
   src/util/vector.cpp
   src/util/tuple.cpp
   src/util/point.cpp
+  src/util/sphere.cpp
   src/physics/ray.cpp
 )
 target_link_libraries(

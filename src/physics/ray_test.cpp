@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 
-
 #include "ray.hpp"
 #include "../util/point.hpp"
 #include "../util/vector.hpp"
@@ -25,4 +24,52 @@ TEST(Ray, ComputePointFromDistance)
     EXPECT_EQ(r.position(1), Point(3, 3, 4));
     EXPECT_EQ(r.position(-1), Point(1, 3, 4));
     EXPECT_EQ(r.position(2.5), Point(4.5, 3, 4));
+}
+
+TEST(Ray, InsersectRayAtTwoPoints)
+{
+    Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere s = Sphere();
+    auto xs = r.intersets(s);
+    EXPECT_EQ(xs.size(), 2);
+    EXPECT_EQ(xs[0], 4.0);
+    EXPECT_EQ(xs[1], 6.0);
+}
+
+TEST(Ray, IntersectAtTangent)
+{
+    Ray r = Ray(Point(0, 1, -5), Vector(0, 0, 1));
+    Sphere s = Sphere();
+    auto xs = r.intersets(s);
+    EXPECT_EQ(xs.size(), 2);
+    EXPECT_EQ(xs[0], 5.0);
+    EXPECT_EQ(xs[1], 5.0);
+}
+
+TEST(Ray, RayMissesSphere)
+{
+    Ray r = Ray(Point(0, 2, -5), Vector(0, 0, 1));
+    Sphere s = Sphere();
+    auto xs = r.intersets(s);
+    EXPECT_EQ(xs.size(), 0);
+}
+
+TEST(Ray, RayStartsInSphere)
+{
+    Ray r = Ray(Point(0, 0, 0), Vector(0, 0, 1));
+    Sphere s = Sphere();
+    auto xs = r.intersets(s);
+    EXPECT_EQ(xs.size(), 2);
+    EXPECT_EQ(xs[0], -1.0);
+    EXPECT_EQ(xs[1], 1.0);
+}
+
+TEST(Ray, RayInFrontOfSphere)
+{
+    Ray r = Ray(Point(0, 0, 5), Vector(0, 0, 1));
+    Sphere s = Sphere();
+    auto xs = r.intersets(s);
+    EXPECT_EQ(xs.size(), 2);
+    EXPECT_EQ(xs[0], -6.0);
+    EXPECT_EQ(xs[1], -4.0);
 }
