@@ -9,6 +9,8 @@ namespace dito::util {
             Sphere();
 
             Point origin() const;
+            bool operator==(Sphere const &other) const;
+            bool operator!=(Sphere const &other) const;
 
         private:
             Point _origin;

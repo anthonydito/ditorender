@@ -108,6 +108,8 @@ add_executable(
   src/util/point.cpp
   src/util/sphere.cpp
   src/physics/ray.cpp
+  src/physics/intersection.cpp
+  src/physics/intersections.cpp
 )
 target_link_libraries(
   physics_ray_test

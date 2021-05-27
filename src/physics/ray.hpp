@@ -5,6 +5,7 @@
 #include "../util/point.hpp"
 #include "../util/vector.hpp"
 #include "../util/sphere.hpp"
+#include "intersections.hpp"
 
 namespace dito::physics
 {
@@ -16,7 +17,7 @@ namespace dito::physics
             dito::util::Point origin() const;
             dito::util::Vector direction() const;
             dito::util::Point position(double time) const;
-            std::vector<double> intersets(dito::util::Sphere) const;
+            Intersections intersets(dito::util::Sphere &) const;
 
         private:
             dito::util::Point _origin;

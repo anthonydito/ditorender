@@ -1,5 +1,7 @@
 #include "ray.hpp"
 
+#include "intersection.hpp"
+
 using namespace dito::util;
 using namespace dito::physics;
 
@@ -24,9 +26,9 @@ Point Ray::position(double time) const
     return this->origin() + (this->direction() * time);
 }
 
-std::vector<double> Ray::intersets(Sphere sphere) const
+Intersections Ray::intersets(Sphere & sphere) const
 {
-    std::vector<double> intersection_points;
+    Intersections intersection_points;
 
     Tuple sphere_to_ray = this->origin() - sphere.origin();
     auto a = this->direction().dot(this->direction());
@@ -46,8 +48,8 @@ std::vector<double> Ray::intersets(Sphere sphere) const
     auto t1 = (-b - sqrt_discriminant) / (2 * a);
     auto t2 = (-b + sqrt_discriminant) / (2 * a);
 
-    intersection_points.push_back(t1);
-    intersection_points.push_back(t2);
+    intersection_points.push_back(Intersection(t1, sphere));
+    intersection_points.push_back(Intersection(t2, sphere));
 
     return intersection_points;
 }
