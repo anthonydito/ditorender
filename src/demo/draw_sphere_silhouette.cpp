@@ -24,7 +24,7 @@ int main()
     int half_width = c.width() / 2;
     int half_height = c.height() / 2;
 
-    std::cout << "starting render 2" << std::endl;
+    std::cout << "starting render" << std::endl;
 
     for (int w = -half_width; w < half_width; ++w)
     {
