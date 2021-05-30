@@ -1,5 +1,6 @@
 #include "ray.hpp"
 
+#include "../util/tuple.hpp"
 #include "intersection.hpp"
 
 using namespace dito::util;
@@ -11,7 +12,7 @@ Ray::Ray(Point origin, Vector direction)
     this->_direction = direction;
 }
 
-Point Ray::origin() const 
+Point Ray::origin() const
 {
     return this->_origin;
 }
@@ -26,7 +27,7 @@ Point Ray::position(double time) const
     return this->origin() + (this->direction() * time);
 }
 
-Intersections Ray::intersets(Sphere & sphere) const
+Intersections Ray::intersets(Sphere &sphere) const
 {
     Intersections intersection_points;
 
@@ -52,4 +53,13 @@ Intersections Ray::intersets(Sphere & sphere) const
     intersection_points.push_back(Intersection(t2, sphere));
 
     return intersection_points;
+}
+
+Ray Ray::transform(dito::util::Matrix m) const
+{
+    auto transformed_direction = m * this->direction();
+    auto transformed_direction_vector = transformed_direction.to_vector();
+    auto transformed_origin = m * this->origin();
+    auto transformd_origin_point = transformed_origin.to_point();
+    return Ray(transformd_origin_point, transformed_direction_vector);
 }

@@ -11,7 +11,6 @@ namespace dito::util {
             Vector(double, double, double);
             double magnitude() const;
             Vector normalize() const;
-            // double dot(const Vector &) const;
             Vector cross(const Vector &) const;
 
             Vector operator*(double scalar) const;

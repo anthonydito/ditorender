@@ -107,6 +107,7 @@ add_executable(
   src/util/tuple.cpp
   src/util/point.cpp
   src/util/sphere.cpp
+  src/util/matrix.cpp
   src/physics/ray.cpp
   src/physics/intersection.cpp
   src/physics/intersections.cpp
