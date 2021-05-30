@@ -59,6 +59,20 @@ add_executable(
   src/util/color.cpp
 )
 add_executable(
+  demo_draw_sphere_silhouette
+  src/demo/draw_sphere_silhouette.cpp
+  src/util/tuple.cpp
+  src/util/vector.cpp
+  src/util/sphere.cpp
+  src/util/matrix.cpp
+  src/util/point.cpp
+  src/physics/ray.cpp
+  src/physics/intersection.cpp
+  src/physics/intersections.cpp
+  src/util/color.cpp
+  src/drawing/canvas.cpp
+)
+add_executable(
   util_tuple_test
   src/util/tuple_test.cpp
   src/util/tuple.cpp
