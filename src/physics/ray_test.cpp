@@ -157,3 +157,23 @@ TEST(Ray, ScalingRay)
     EXPECT_EQ(r2.origin(), Point(2, 6, 12));
     EXPECT_EQ(r2.direction(), Vector(0, 3, 0));
 }
+
+TEST(Ray, ScaledSphereWithRay)
+{
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere s;
+    s.set_transform(Matrix::scaling(2, 2, 2));
+    Intersections xs = r.intersets(s);
+    EXPECT_EQ(xs.size(), 2);
+    EXPECT_EQ(xs[0].t(), 3);
+    EXPECT_EQ(xs[1].t(), 7);
+}
+
+TEST(Ray, ScaledSphereWithTranslated)
+{
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    Sphere s;
+    s.set_transform(Matrix::translation(5, 0, 0));
+    Intersections xs = r.intersets(s);
+    EXPECT_EQ(xs.size(), 0);
+}

@@ -29,11 +29,14 @@ Point Ray::position(double time) const
 
 Intersections Ray::intersets(Sphere &sphere) const
 {
+
+    Ray transform_ray = this->transform(sphere.transform().inverse());
+
     Intersections intersection_points;
 
-    Tuple sphere_to_ray = this->origin() - sphere.origin();
-    auto a = this->direction().dot(this->direction());
-    auto b = 2 * this->direction().dot(sphere_to_ray);
+    Tuple sphere_to_ray = transform_ray.origin() - sphere.origin();
+    auto a = transform_ray.direction().dot(transform_ray.direction());
+    auto b = 2 * transform_ray.direction().dot(sphere_to_ray);
     auto c = sphere_to_ray.dot(sphere_to_ray) - 1;
 
     auto discriminant = pow(b, 2) - (4 * a * c);
