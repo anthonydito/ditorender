@@ -1,5 +1,7 @@
 #include "sphere.hpp"
 
+#include "matrix.hpp"
+
 using namespace dito::util;
 
 Sphere::Sphere() : _transform(Matrix::identity_matrix(4))
@@ -34,5 +36,9 @@ bool Sphere::operator!=(Sphere const &other) const
 
 Vector Sphere::normal_at(Point p) const
 {
-    return (p - this->origin()).to_vector();
+    Matrix transform_inverse = this->transform().inverse();
+    Tuple object_point = transform_inverse * p;
+    Tuple object_normal = object_point - this->origin();
+    Tuple world_normal = transform_inverse.transpose() * object_normal;
+    return Vector(world_normal.x(), world_normal.y(), world_normal.z()).normalize();
 }
