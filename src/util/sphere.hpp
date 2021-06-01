@@ -3,6 +3,7 @@
 
 #include "point.hpp"
 #include "matrix.hpp"
+#include "vector.hpp"
 
 namespace dito::util {
     class Sphere {
@@ -11,6 +12,7 @@ namespace dito::util {
 
             Point origin() const;
             Matrix transform() const;
+            Vector normal_at(Point p) const;
 
             void set_transform(Matrix);
             bool operator==(Sphere const &other) const;

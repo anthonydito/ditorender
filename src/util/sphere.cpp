@@ -31,3 +31,8 @@ bool Sphere::operator!=(Sphere const &other) const
 {
     return this != &other;
 }
+
+Vector Sphere::normal_at(Point p) const
+{
+    return (p - this->origin()).to_vector();
+}
