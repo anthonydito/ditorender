@@ -143,6 +143,16 @@ target_link_libraries(
   sphere_test
   gtest_main
 )
+add_executable(
+  vector_test
+  src/util/vector_test.cpp
+  src/util/vector.cpp
+  src/util/tuple.cpp
+)
+target_link_libraries(
+  vector_test
+  gtest_main
+)
 
 include(GoogleTest)
 gtest_discover_tests(util_tuple_test)
@@ -150,3 +160,4 @@ gtest_discover_tests(drawing_canvas_test)
 gtest_discover_tests(util_matrix_test)
 gtest_discover_tests(physics_ray_test)
 gtest_discover_tests(sphere_test)
+gtest_discover_tests(vector_test)

@@ -48,3 +48,9 @@ Vector Vector::operator-(Vector const &v) const
 {
     return this->sub(v).to_vector();
 }
+
+Vector Vector::reflect(Vector const &normal) const
+{
+    auto tuple = this->sub(normal * 2 * this->dot(normal));
+    return tuple.to_vector();
+}
