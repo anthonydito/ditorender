@@ -4,6 +4,7 @@
 #include "point.hpp"
 #include "matrix.hpp"
 #include "vector.hpp"
+#include "../physics/material.hpp"
 
 namespace dito::util {
     class Sphere {
@@ -13,6 +14,7 @@ namespace dito::util {
             Point origin() const;
             Matrix transform() const;
             Vector normal_at(Point p) const;
+            dito::physics::Material material() const;
 
             void set_transform(Matrix);
             bool operator==(Sphere const &other) const;
@@ -21,6 +23,7 @@ namespace dito::util {
         private:
             Point _origin;
             Matrix _transform;
+            dito::physics::Material _material;
     };
 };
 

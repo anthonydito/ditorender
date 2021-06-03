@@ -138,6 +138,8 @@ add_executable(
   src/util/tuple.cpp
   src/util/point.cpp
   src/util/vector.cpp
+  src/physics/material.cpp
+  src/util/color.cpp
 )
 target_link_libraries(
   sphere_test

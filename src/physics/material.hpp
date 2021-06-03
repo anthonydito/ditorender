@@ -16,6 +16,8 @@ namespace dito::physics
             double specular() const;
             double shininess() const;
 
+            bool operator==(const Material &) const;
+
 
         private:
             dito::util::Color _color;

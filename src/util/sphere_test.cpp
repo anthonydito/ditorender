@@ -2,8 +2,10 @@
 
 #include "sphere.hpp"
 #include "matrix.hpp"
+#include "../physics/material.hpp"
 
 using namespace dito::util;
+using namespace dito::physics;
 
 TEST(Sphere, DefaultTransformation)
 {
@@ -71,4 +73,10 @@ TEST(Sphere, NormalOnATransformedSphere)
     s.set_transform(m);
     auto n = s.normal_at(Point(0, sqrt(2) / 2, -sqrt(2) / 2));
     EXPECT_EQ(n, Vector(0, 0.970143, -0.242536));
+}
+
+TEST(Sphere, DefaultMaterialInInitialization)
+{
+    Sphere s;
+    EXPECT_EQ(s.material(), Material());
 }

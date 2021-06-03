@@ -3,6 +3,7 @@
 #include "matrix.hpp"
 
 using namespace dito::util;
+using namespace dito::physics;
 
 Sphere::Sphere() : _transform(Matrix::identity_matrix(4))
 {
@@ -41,4 +42,8 @@ Vector Sphere::normal_at(Point p) const
     Tuple object_normal = object_point - this->origin();
     Tuple world_normal = transform_inverse.transpose() * object_normal;
     return Vector(world_normal.x(), world_normal.y(), world_normal.z()).normalize();
+}
+
+Material Sphere::material() const {
+    return _material;
 }
