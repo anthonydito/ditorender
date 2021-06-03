@@ -166,6 +166,16 @@ target_link_libraries(
   point_list_test
   gtest_main
 )
+add_executable(
+  material_test
+  src/physics/material_test.cpp
+  src/util/color.cpp 
+  src/physics/material.cpp
+)
+target_link_libraries(
+  material_test
+  gtest_main
+)
 
 include(GoogleTest)
 gtest_discover_tests(util_tuple_test)
@@ -175,3 +185,4 @@ gtest_discover_tests(physics_ray_test)
 gtest_discover_tests(sphere_test)
 gtest_discover_tests(vector_test)
 gtest_discover_tests(point_list_test)
+gtest_discover_tests(material_test)
