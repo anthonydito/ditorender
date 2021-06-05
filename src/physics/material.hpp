@@ -19,6 +19,8 @@ namespace dito::physics
 
             dito::util::Color lighting(PointLight, dito::util::Point, dito::util::Vector, dito::util::Vector) const;
 
+            void set_color(dito::util::Color color);
+
             bool operator==(const Material &) const;
 
 

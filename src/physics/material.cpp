@@ -36,6 +36,11 @@ Color Material::color() const
     return _color;
 }
 
+void Material::set_color(Color color)
+{
+    _color = color;
+}
+
 bool Material::operator==(const Material &other) const {
     return other.color() == this->color() && 
         abs(ambient() - other.ambient()) < COMPARE_EPSILON &&
@@ -50,7 +55,7 @@ Color Material::lighting(PointLight pl, Point p, Vector eye_vector, Vector norma
     auto effective_color = this->color() * pl.intensity();
     auto light_v = (pl.position() - p).to_vector().normalize();
     auto ambient = effective_color * this->ambient();
-    
+
     auto light_dot_normal = light_v.dot(normal_vector);
 
     Color diffuse = Color::black();

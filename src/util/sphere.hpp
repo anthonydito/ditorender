@@ -15,6 +15,7 @@ namespace dito::util {
             Matrix transform() const;
             Vector normal_at(Point p) const;
             dito::physics::Material material() const;
+            void set_material(dito::physics::Material);
 
             void set_transform(Matrix);
             bool operator==(Sphere const &other) const;

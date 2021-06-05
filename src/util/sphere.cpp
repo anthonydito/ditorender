@@ -47,3 +47,8 @@ Vector Sphere::normal_at(Point p) const
 Material Sphere::material() const {
     return _material;
 }
+
+void Sphere::set_material(Material material)
+{
+    _material = material;
+}
