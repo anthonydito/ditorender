@@ -4,7 +4,7 @@
 
 using namespace dito::util;
 
-const double COMPARE_EPSILON = 0.000001;
+const double COMPARE_EPSILON = 0.0001;
 
 int clamp_double_to_255(double input)
 {
@@ -24,6 +24,10 @@ Color::Color(double red, double green, double blue)
     this->_red = red;
     this->_green = green;
     this->_blue = blue;
+}
+
+Color Color::black() {
+    return Color(0, 0, 0);
 }
 
 double Color::red() const
@@ -110,4 +114,10 @@ bool Color::operator==(Color const &other) const
 
 bool Color::operator!=(Color const &other) const {
     return !this->eq(other);
+}
+
+std::ostream &dito::util::operator<<(std::ostream &os, const Color &c)
+{
+    os << "red=" << c.red() << ", green=" << c.green() << ", blue=" << c.blue() << std::endl;
+    return os;
 }

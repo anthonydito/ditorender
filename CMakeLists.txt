@@ -173,6 +173,10 @@ add_executable(
   src/physics/material_test.cpp
   src/util/color.cpp 
   src/physics/material.cpp
+  src/util/vector.cpp
+  src/util/tuple.cpp
+  src/util/point.cpp
+  src/physics/point_light.cpp
 )
 target_link_libraries(
   material_test

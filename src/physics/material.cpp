@@ -43,3 +43,31 @@ bool Material::operator==(const Material &other) const {
         abs(specular() - other.specular()) < COMPARE_EPSILON &&
         abs(shininess() - other.shininess()) < COMPARE_EPSILON;
 }
+
+Color Material::lighting(PointLight pl, Point p, Vector eye_vector, Vector normal_vector) const
+{
+
+    auto effective_color = this->color() * pl.intensity();
+    auto light_v = (pl.position() - p).to_vector().normalize();
+    auto ambient = effective_color * this->ambient();
+    
+    auto light_dot_normal = light_v.dot(normal_vector);
+
+    Color diffuse = Color::black();
+    Color specular = Color::black();
+
+    // light is NOT on the other side of the surface
+    if (light_dot_normal >= 0) {
+        diffuse = effective_color * this->diffuse() * light_dot_normal;
+
+        Vector reflect_v = light_v.negate().to_vector().reflect(normal_vector);
+        auto reflect_dot_eye = reflect_v.dot(eye_vector);
+
+        if (reflect_dot_eye != 0) {
+            auto factor = pow(reflect_dot_eye, this->shininess());
+            specular = pl.intensity() * this->specular() * factor;
+        }
+    }
+
+    return ambient + diffuse + specular;
+}

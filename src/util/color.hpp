@@ -1,12 +1,17 @@
 #ifndef DITO_UTIL_COLOR
 #define DITO_UTIL_COLOR
 
+#include <ostream>
+
 namespace dito::util
 {
     class Color {
 
     public:
         Color(double, double, double);
+
+        static Color black();
+
         double red() const;
         double green() const;
         double blue() const;
@@ -25,6 +30,7 @@ namespace dito::util
         Color operator*(Color const &other) const;
         bool operator==(Color const &other) const;
         bool operator!=(Color const &other) const;
+        friend std::ostream &operator<<(std::ostream &os, const Color &c);
 
     private:
         double _red;
