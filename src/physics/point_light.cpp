@@ -16,3 +16,7 @@ Color PointLight::intensity() const
 {
     return _intensity;
 }
+
+bool PointLight::operator==(PointLight const &other) const {
+    return this->position() == other.position() && this->intensity() == other.intensity();
+}

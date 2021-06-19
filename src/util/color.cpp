@@ -12,7 +12,8 @@ int clamp_double_to_255(double input)
     if (multiplied > 255)
     {
         return 255;
-    } else if (multiplied < 0)
+    }
+    else if (multiplied < 0)
     {
         return 0;
     }
@@ -26,7 +27,8 @@ Color::Color(double red, double green, double blue)
     this->_blue = blue;
 }
 
-Color Color::black() {
+Color Color::black()
+{
     return Color(0, 0, 0);
 }
 
@@ -112,7 +114,8 @@ bool Color::operator==(Color const &other) const
     return this->eq(other);
 }
 
-bool Color::operator!=(Color const &other) const {
+bool Color::operator!=(Color const &other) const
+{
     return !this->eq(other);
 }
 

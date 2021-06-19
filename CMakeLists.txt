@@ -198,6 +198,26 @@ target_link_libraries(
   material_test
   gtest_main
 )
+add_executable(
+  world_test
+  src/physics/world_test.cpp
+  src/util/sphere.cpp
+  src/physics/world.cpp
+  src/physics/point_light.cpp
+  src/util/vector.cpp
+  src/util/tuple.cpp
+  src/util/point.cpp
+  src/util/matrix.cpp
+  src/physics/material.cpp
+  src/util/color.cpp
+  src/physics/ray.cpp
+  src/physics/intersection.cpp
+  src/physics/intersections.cpp
+)
+target_link_libraries(
+  world_test
+  gtest_main
+)
 
 include(GoogleTest)
 gtest_discover_tests(util_tuple_test)
@@ -208,3 +228,4 @@ gtest_discover_tests(sphere_test)
 gtest_discover_tests(vector_test)
 gtest_discover_tests(point_list_test)
 gtest_discover_tests(material_test)
+gtest_discover_tests(world_test)

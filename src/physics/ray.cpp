@@ -1,5 +1,6 @@
 #include "ray.hpp"
 
+#include "math.h"
 #include "../util/tuple.hpp"
 #include "intersection.hpp"
 

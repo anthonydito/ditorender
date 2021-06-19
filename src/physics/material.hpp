@@ -17,6 +17,11 @@ namespace dito::physics
             double specular() const;
             double shininess() const;
 
+            void set_ambient(double);
+            void set_diffuse(double);
+            void set_specular(double);
+            void set_shininess(double);
+
             dito::util::Color lighting(PointLight, dito::util::Point, dito::util::Vector, dito::util::Vector) const;
 
             void set_color(dito::util::Color color);

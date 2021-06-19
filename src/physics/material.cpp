@@ -41,6 +41,26 @@ void Material::set_color(Color color)
     _color = color;
 }
 
+void Material::set_ambient(double ambient)
+{
+    _ambient = ambient;
+}
+
+void Material::set_diffuse(double diffuse)
+{
+    _diffuse = diffuse;
+}
+
+void Material::set_specular(double specular)
+{
+    _specular = specular;
+}
+
+void Material::set_shininess(double shininess)
+{
+    _shininess = shininess;
+}
+
 bool Material::operator==(const Material &other) const {
     return other.color() == this->color() && 
         abs(ambient() - other.ambient()) < COMPARE_EPSILON &&

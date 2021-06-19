@@ -14,6 +14,7 @@ namespace dito::physics
 
             dito::util::Point position() const;
             dito::util::Color intensity() const;
+            bool operator==(PointLight const &other) const;
 
         private:
             dito::util::Point _position;

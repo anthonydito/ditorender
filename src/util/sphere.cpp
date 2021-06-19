@@ -52,3 +52,12 @@ void Sphere::set_material(Material material)
 {
     _material = material;
 }
+
+std::ostream &dito::util::operator<<(std::ostream &os, const Sphere &s)
+{
+    os << "transform:" << std::endl;
+    os << s.transform();
+    os << "point:" << std::endl;
+    os << s.origin() << std::endl;;
+    return os;
+}
