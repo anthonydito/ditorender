@@ -1,5 +1,6 @@
 #include "ray.hpp"
 
+#include <algorithm>
 #include "math.h"
 #include "../util/tuple.hpp"
 #include "intersection.hpp"
@@ -28,14 +29,14 @@ Point Ray::position(double time) const
     return this->origin() + (this->direction() * time);
 }
 
-Intersections Ray::intersets(Sphere &sphere) const
+Intersections Ray::intersets(std::shared_ptr<Sphere> sphere) const
 {
 
-    Ray transform_ray = this->transform(sphere.transform().inverse());
+    Ray transform_ray = this->transform(sphere->transform().inverse());
 
     Intersections intersection_points;
 
-    Tuple sphere_to_ray = transform_ray.origin() - sphere.origin();
+    Tuple sphere_to_ray = transform_ray.origin() - sphere->origin();
     auto a = transform_ray.direction().dot(transform_ray.direction());
     auto b = 2 * transform_ray.direction().dot(sphere_to_ray);
     auto c = sphere_to_ray.dot(sphere_to_ray) - 1;
@@ -57,6 +58,23 @@ Intersections Ray::intersets(Sphere &sphere) const
     intersection_points.push_back(Intersection(t2, sphere));
 
     return intersection_points;
+}
+
+Intersections Ray::intersects(World &world) const
+{
+
+    std::vector<Intersection> all_intersections;
+
+    for (auto sphere : world.objects()) {
+        auto curr_intersections = this->intersets(sphere);
+        for (auto intersection : curr_intersections.items()) {
+            all_intersections.push_back(intersection);
+        }
+    }
+
+    std::sort(all_intersections.begin(), all_intersections.end());
+
+    return Intersections(all_intersections);
 }
 
 Ray Ray::transform(dito::util::Matrix m) const

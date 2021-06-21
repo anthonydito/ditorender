@@ -5,7 +5,7 @@ using namespace dito::physics;
 
 const double COMPARE_EPSILON = 0.000001;
 
-Intersection::Intersection(double t, const Sphere &object) : _object(object)
+Intersection::Intersection(double t, std::shared_ptr<Sphere> object) : _object(object)
 {
     this->_t = t;
 }
@@ -15,7 +15,7 @@ double Intersection::t() const
     return _t;
 }
 
-const Sphere &Intersection::object() const
+std::shared_ptr<Sphere> Intersection::object() const
 {
     return _object;
 }
@@ -33,4 +33,8 @@ bool Intersection::operator==(Intersection const &other) const {
 
 bool Intersection::operator!=(Intersection const &other) const {
     return !this->eq(other);
+}
+
+bool Intersection::operator<(Intersection const &other) const {
+    return this->t() < other.t();
 }

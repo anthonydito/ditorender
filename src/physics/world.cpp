@@ -21,18 +21,18 @@ World World::default_world()
     m.set_diffuse(0.7);
     m.set_specular(0.2);
 
-    Sphere s1;
-    s1.set_material(m);
+    auto s1 = std::make_shared<Sphere>();
+    s1->set_material(m);
     world.add_object(s1);
 
-    Sphere s2;
-    s2.set_transform(Matrix::scaling(0.5, 0.5, 0.5));
+    auto s2 = std::make_shared<Sphere>();
+    s2->set_transform(Matrix::scaling(0.5, 0.5, 0.5));
     world.add_object(s2);
 
     return world;
 }
 
-void World::add_object(dito::util::Sphere sphere)
+void World::add_object(std::shared_ptr<dito::util::Sphere> sphere)
 {
     this->_objects.push_back(sphere);
 }
@@ -58,7 +58,7 @@ std::optional<PointLight> World::light() const
     return this->lights()[0];
 }
 
-std::vector<Sphere> World::objects() const
+std::vector<std::shared_ptr<Sphere>> World::objects() const
 {
     return this->_objects;
 }

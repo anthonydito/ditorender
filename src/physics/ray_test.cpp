@@ -5,6 +5,7 @@
 #include "../util/vector.hpp"
 #include "intersection.hpp"
 #include "intersections.hpp"
+#include "world.hpp"
 
 using namespace dito::physics;
 using namespace dito::util;
@@ -31,7 +32,7 @@ TEST(Ray, ComputePointFromDistance)
 TEST(Ray, InsersectRayAtTwoPoints)
 {
     Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-    Sphere s = Sphere();
+    auto s = std::make_shared<Sphere>();
     auto xs = r.intersets(s);
     EXPECT_EQ(xs.size(), 2);
     EXPECT_EQ(xs[0].t(), 4.0);
@@ -41,7 +42,7 @@ TEST(Ray, InsersectRayAtTwoPoints)
 TEST(Ray, IntersectAtTangent)
 {
     Ray r = Ray(Point(0, 1, -5), Vector(0, 0, 1));
-    Sphere s = Sphere();
+    auto s = std::make_shared<Sphere>();
     auto xs = r.intersets(s);
     EXPECT_EQ(xs.size(), 2);
     EXPECT_EQ(xs[0].t(), 5.0);
@@ -51,7 +52,7 @@ TEST(Ray, IntersectAtTangent)
 TEST(Ray, RayMissesSphere)
 {
     Ray r = Ray(Point(0, 2, -5), Vector(0, 0, 1));
-    Sphere s = Sphere();
+    auto s = std::make_shared<Sphere>();
     auto xs = r.intersets(s);
     EXPECT_EQ(xs.size(), 0);
 }
@@ -59,7 +60,7 @@ TEST(Ray, RayMissesSphere)
 TEST(Ray, RayStartsInSphere)
 {
     Ray r = Ray(Point(0, 0, 0), Vector(0, 0, 1));
-    Sphere s = Sphere();
+    auto s = std::make_shared<Sphere>();
     auto xs = r.intersets(s);
     EXPECT_EQ(xs.size(), 2);
     EXPECT_EQ(xs[0].t(), -1.0);
@@ -69,7 +70,7 @@ TEST(Ray, RayStartsInSphere)
 TEST(Ray, RayInFrontOfSphere)
 {
     Ray r = Ray(Point(0, 0, 5), Vector(0, 0, 1));
-    Sphere s = Sphere();
+    auto s = std::make_shared<Sphere>();
     auto xs = r.intersets(s);
     EXPECT_EQ(xs.size(), 2);
     EXPECT_EQ(xs[0].t(), -6.0);
@@ -78,7 +79,7 @@ TEST(Ray, RayInFrontOfSphere)
 
 TEST(Ray, IntersectionEncapsulatesData)
 {
-    Sphere s = Sphere();
+    auto s = std::make_shared<Sphere>();
     Intersection i(3.5, s);
     EXPECT_EQ(i.t(), 3.5);
     EXPECT_EQ(i.object(), s);
@@ -86,20 +87,20 @@ TEST(Ray, IntersectionEncapsulatesData)
 
 TEST(Ray, AggregatingIntersections)
 {
-    Sphere s = Sphere();
-    Sphere other = Sphere();
-    Intersection i1(1, s);
-    Intersection i2(2, s);
+    auto sphere = std::make_shared<Sphere>();
+    auto other = std::make_shared<Sphere>();
+    Intersection i1(1, sphere);
+    Intersection i2(2, sphere);
     Intersections xs({i1, i2});
     EXPECT_EQ(xs.size(), 2);
-    EXPECT_EQ(xs.items()[0].object(), s);
+    EXPECT_EQ(xs.items()[0].object(), sphere);
     EXPECT_NE(xs.items()[0].object(), other);
-    EXPECT_EQ(xs.items()[1].object(), s);
+    EXPECT_EQ(xs.items()[1].object(), sphere);
 }
 
 TEST(Ray, HitAllPositive)
 {
-    Sphere s;
+    auto s = std::make_shared<Sphere>();
     Intersection i1(1, s);
     Intersection i2(2, s);
     Intersections xs({i1, i2});
@@ -109,7 +110,7 @@ TEST(Ray, HitAllPositive)
 
 TEST(Ray, HitSomeNegative)
 {
-    Sphere s;
+    auto s = std::make_shared<Sphere>();
     Intersection i1(-1, s);
     Intersection i2(1, s);
     Intersections xs({i2, i1});
@@ -119,7 +120,7 @@ TEST(Ray, HitSomeNegative)
 
 TEST(Ray, HitAllNegative)
 {
-    Sphere s;
+    auto s = std::make_shared<Sphere>();
     Intersection i1(-1, s);
     Intersection i2(-2, s);
     Intersections xs({i1, i2});
@@ -129,7 +130,7 @@ TEST(Ray, HitAllNegative)
 
 TEST(Ray, HitIsAlwaysNonNegativeIntersection)
 {
-    Sphere s;
+    auto s = std::make_shared<Sphere>();
     Intersection i1(5, s);
     Intersection i2(7, s);
     Intersection i3(-3, s);
@@ -161,8 +162,8 @@ TEST(Ray, ScalingRay)
 TEST(Ray, ScaledSphereWithRay)
 {
     Ray r(Point(0, 0, -5), Vector(0, 0, 1));
-    Sphere s;
-    s.set_transform(Matrix::scaling(2, 2, 2));
+    auto s = std::make_shared<Sphere>();
+    s->set_transform(Matrix::scaling(2, 2, 2));
     Intersections xs = r.intersets(s);
     EXPECT_EQ(xs.size(), 2);
     EXPECT_EQ(xs[0].t(), 3);
@@ -172,8 +173,20 @@ TEST(Ray, ScaledSphereWithRay)
 TEST(Ray, ScaledSphereWithTranslated)
 {
     Ray r(Point(0, 0, -5), Vector(0, 0, 1));
-    Sphere s;
-    s.set_transform(Matrix::translation(5, 0, 0));
+    auto s = std::make_shared<Sphere>();
+    s->set_transform(Matrix::translation(5, 0, 0));
     Intersections xs = r.intersets(s);
     EXPECT_EQ(xs.size(), 0);
+}
+
+TEST(Ray, IntersectionWithDefaultWorld)
+{
+    World w = World::default_world();
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    auto xs = r.intersects(w);
+    EXPECT_EQ(xs.size(), 4);
+    EXPECT_EQ(xs[0].t(), 4);
+    EXPECT_EQ(xs[1].t(), 4.5);
+    EXPECT_EQ(xs[2].t(), 5.5);
+    EXPECT_EQ(xs[3].t(), 6);
 }

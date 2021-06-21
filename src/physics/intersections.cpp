@@ -9,6 +9,11 @@ Intersections::Intersections(std::initializer_list<Intersection> items)
     _items = std::vector(items);
 }
 
+Intersections::Intersections(std::vector<Intersection> items)
+{
+    _items = items;
+}
+
 std::vector<Intersection> Intersections::items() const
 {
     return _items;

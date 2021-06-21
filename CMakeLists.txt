@@ -141,6 +141,10 @@ add_executable(
   src/physics/ray.cpp
   src/physics/intersection.cpp
   src/physics/intersections.cpp
+  src/physics/world.cpp
+  src/util/color.cpp
+  src/physics/point_light.cpp
+  src/physics/material.cpp
 )
 target_link_libraries(
   physics_ray_test

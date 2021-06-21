@@ -13,6 +13,7 @@ namespace dito::physics
         public:
             Intersections();
             Intersections(std::initializer_list<Intersection>);
+            Intersections(std::vector<Intersection>);
 
             void push_back(Intersection);
             std::vector<Intersection> items() const;

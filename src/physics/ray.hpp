@@ -7,6 +7,7 @@
 #include "../util/sphere.hpp"
 #include "../util/matrix.hpp"
 #include "intersections.hpp"
+#include "world.hpp"
 
 namespace dito::physics
 {
@@ -18,7 +19,8 @@ namespace dito::physics
             dito::util::Point origin() const;
             dito::util::Vector direction() const;
             dito::util::Point position(double time) const;
-            Intersections intersets(dito::util::Sphere &) const;
+            Intersections intersects(dito::physics::World &) const;
+            Intersections intersets(std::shared_ptr<dito::util::Sphere>) const;
             Ray transform(dito::util::Matrix) const;
 
         private:

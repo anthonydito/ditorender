@@ -15,14 +15,14 @@ namespace dito::physics
 
         static World default_world();
 
-        void add_object(dito::util::Sphere sphere);
+        void add_object(std::shared_ptr<dito::util::Sphere> sphere);
         void add_point_light(dito::physics::PointLight point_light);
-        std::vector<dito::util::Sphere> objects() const;
+        std::vector<std::shared_ptr<dito::util::Sphere>> objects() const;
         std::vector<dito::physics::PointLight> lights() const;
         std::optional<dito::physics::PointLight> light() const;;
 
     private:
-        std::vector<dito::util::Sphere> _objects;
+        std::vector<std::shared_ptr<dito::util::Sphere>> _objects;
         std::vector<dito::physics::PointLight> _lights;
     };
 };
