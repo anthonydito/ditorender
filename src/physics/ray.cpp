@@ -85,3 +85,28 @@ Ray Ray::transform(dito::util::Matrix m) const
     auto transformd_origin_point = transformed_origin.to_point();
     return Ray(transformd_origin_point, transformed_direction_vector);
 }
+
+Computations Ray::prepare_computations(Intersection intersection)
+{
+
+    auto t = intersection.t();
+    auto object = intersection.object();
+    auto point = position(t);
+    auto eye_vector = direction().negate().to_vector();
+    auto normal_vector = object->normal_at(point);
+    bool inside = false;
+
+    if (normal_vector.dot(eye_vector) < 0) {
+        inside = true;
+        normal_vector = normal_vector.negate().to_vector();
+    }
+
+    return Computations(
+        object,
+        point,
+        eye_vector,
+        normal_vector,
+        t,
+        inside
+    );
+}

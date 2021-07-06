@@ -145,6 +145,7 @@ add_executable(
   src/util/color.cpp
   src/physics/point_light.cpp
   src/physics/material.cpp
+  src/physics/computations.cpp
 )
 target_link_libraries(
   physics_ray_test

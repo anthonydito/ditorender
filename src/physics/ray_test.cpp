@@ -190,3 +190,37 @@ TEST(Ray, IntersectionWithDefaultWorld)
     EXPECT_EQ(xs[2].t(), 5.5);
     EXPECT_EQ(xs[3].t(), 6);
 }
+
+TEST(Ray, PrecomputingState)
+{
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    auto s = std::make_shared<Sphere>();
+    Intersection i(4.0, s);
+    auto comps = r.prepare_computations(i);
+    EXPECT_EQ(comps.t(), i.t());
+    EXPECT_EQ(comps.object(), i.object());
+    EXPECT_EQ(comps.point(), Point(0, 0, -1));
+    EXPECT_EQ(comps.eye_vector(), Vector(0, 0, -1));
+    EXPECT_EQ(comps.normal_vector(), Vector(0, 0, -1));
+}
+
+TEST(Ray, ComputationsWhenHitOccursOnOutside)
+{
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    auto s = std::make_shared<Sphere>();
+    Intersection i(4.0, s);
+    auto comps = r.prepare_computations(i);
+    EXPECT_FALSE(comps.inside());
+}
+
+TEST(Ray, ComputationsWhenHitOccursOnInside)
+{
+    Ray r(Point(0, 0, 0), Vector(0, 0, 1));
+    auto s = std::make_shared<Sphere>();
+    Intersection i(1, s);
+    auto comps = r.prepare_computations(i);
+    EXPECT_EQ(Point(0, 0, 1), comps.point());
+    EXPECT_EQ(comps.eye_vector(), Vector(0, 0, -1));
+    EXPECT_TRUE(comps.inside());
+    EXPECT_EQ(comps.normal_vector(), Vector(0, 0, -1));
+}
