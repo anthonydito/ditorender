@@ -4,6 +4,7 @@
 #include "world.hpp"
 #include "../util/color.hpp"
 #include "../util/point.hpp"
+#include "../physics/ray.hpp"
 #include "../physics/point_light.hpp"
 
 using namespace dito::physics;

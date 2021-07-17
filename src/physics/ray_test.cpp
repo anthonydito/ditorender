@@ -224,3 +224,43 @@ TEST(Ray, ComputationsWhenHitOccursOnInside)
     EXPECT_TRUE(comps.inside());
     EXPECT_EQ(comps.normal_vector(), Vector(0, 0, -1));
 }
+
+TEST(Ray, ShadingAnIntersection)
+{
+    World w = World::default_world();
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    auto s = w.objects()[0];
+    Intersection i = Intersection(4, s);
+    auto comps = r.prepare_computations(i);
+    Color c = w.shade_hit(comps);
+
+    EXPECT_EQ(c, Color(0.38066, 0.47583, 0.2855));
+}
+
+TEST(Ray, ShadingAnIntersectionFromInside)
+{
+    World w = World::default_world();
+    w.set_light(PointLight(Point(0, 0.25, 0), Color(1, 1, 1)));
+    Ray r = Ray(Point(0, 0, 0), Vector(0, 0, 1));
+    auto shape = w.objects()[1];
+    Intersection i(0.5, shape);
+    auto comps = r.prepare_computations(i);
+    auto c = w.shade_hit(comps);
+    EXPECT_EQ(c, Color(0.90498, 0.90498, 0.90498));
+}
+
+TEST(Ray, ColorWhenARayMisses)
+{
+    World w = World::default_world();
+    Ray r = Ray(Point(0, 0, -5), Vector(0, 1, 0));
+    Color c = r.color_at(w);
+    EXPECT_EQ(c, Color(0, 0, 0));
+}
+
+TEST(Ray, ColorWhenARayHits)
+{
+    World w = World::default_world();
+    Ray r(Point(0, 0, -5), Vector(0, 0, 1));
+    Color c = r.color_at(w);
+    EXPECT_EQ(c, Color(0.38066, 0.47583, 0.2855));
+}

@@ -5,6 +5,7 @@
 #include <optional>
 #include "../util/sphere.hpp"
 #include "point_light.hpp"
+#include "computations.hpp"
 
 namespace dito::physics
 {
@@ -19,7 +20,9 @@ namespace dito::physics
         void add_point_light(dito::physics::PointLight point_light);
         std::vector<std::shared_ptr<dito::util::Sphere>> objects() const;
         std::vector<dito::physics::PointLight> lights() const;
-        std::optional<dito::physics::PointLight> light() const;;
+        std::optional<dito::physics::PointLight> light() const;
+        void set_light(dito::physics::PointLight);
+        dito::util::Color shade_hit(Computations) const;
 
     private:
         std::vector<std::shared_ptr<dito::util::Sphere>> _objects;

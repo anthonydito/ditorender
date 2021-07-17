@@ -2,6 +2,7 @@
 
 #include "../util/point.hpp"
 #include "../util/color.hpp"
+#include "../physics/ray.hpp"
 #include "../physics/material.hpp"
 
 using namespace dito::physics;
@@ -49,10 +50,12 @@ std::vector<PointLight> World::lights() const
 
 std::optional<PointLight> World::light() const
 {
-    if (this->lights().size() == 0) {
+    if (this->lights().size() == 0)
+    {
         return std::optional<PointLight>{};
     }
-    if (this->lights().size() > 1) {
+    if (this->lights().size() > 1)
+    {
         throw new std::invalid_argument("only call light when there is one light in the scene");
     }
     return this->lights()[0];
@@ -61,4 +64,18 @@ std::optional<PointLight> World::light() const
 std::vector<std::shared_ptr<Sphere>> World::objects() const
 {
     return this->_objects;
+}
+
+Color World::shade_hit(Computations computations) const
+{
+    Color output(0, 0, 0);
+    for (auto light : this->lights()) {
+        output = output + computations.object()->material().lighting(light, computations.point(), computations.eye_vector(), computations.normal_vector());
+    }
+    return output;
+}
+
+void World::set_light(PointLight pointLight)
+{
+    _lights = std::vector{pointLight};
 }

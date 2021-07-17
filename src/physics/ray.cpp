@@ -86,7 +86,7 @@ Ray Ray::transform(dito::util::Matrix m) const
     return Ray(transformd_origin_point, transformed_direction_vector);
 }
 
-Computations Ray::prepare_computations(Intersection intersection)
+Computations Ray::prepare_computations(Intersection intersection) const
 {
 
     auto t = intersection.t();
@@ -109,4 +109,16 @@ Computations Ray::prepare_computations(Intersection intersection)
         t,
         inside
     );
+}
+
+Color Ray::color_at(dito::physics::World &world) const
+{
+    Color c(0, 0, 0);
+    auto intersections = this->intersects(world);
+    auto hit = intersections.hit();
+    if (!hit.has_value()) {
+        return c;
+    }
+    auto comps = this->prepare_computations(*hit);
+    return world.shade_hit(comps);
 }
