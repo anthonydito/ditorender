@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include <cmath>
-#include <iostream>
 
 #include "matrix.hpp"
 #include "tuple.hpp"
