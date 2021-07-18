@@ -223,6 +223,19 @@ target_link_libraries(
   world_test
   gtest_main
 )
+add_executable(
+  camera_test
+  src/drawing/camera_test.cpp
+  src/drawing/camera.cpp
+  src/util/matrix.cpp
+  src/util/vector.cpp
+  src/util/tuple.cpp
+  src/util/point.cpp
+)
+target_link_libraries(
+  camera_test
+  gtest_main
+)
 
 include(GoogleTest)
 gtest_discover_tests(util_tuple_test)
@@ -234,3 +247,4 @@ gtest_discover_tests(vector_test)
 gtest_discover_tests(point_list_test)
 gtest_discover_tests(material_test)
 gtest_discover_tests(world_test)
+gtest_discover_tests(camera_test)
