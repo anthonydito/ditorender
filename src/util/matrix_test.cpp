@@ -518,3 +518,46 @@ TEST(Matrix, Sequence2)
     Point p_expexted = Point(15, 0, 7);
     EXPECT_EQ(T * p, p_expexted);
 }
+
+TEST(Matrix, DefaultOrientation)
+{
+    Point from(0, 0, 0);
+    Point to(0, 0, -1);
+    Vector up(0, 1, 0);
+    auto t = Matrix::view_transform(from, to, up);
+    auto identity = Matrix::identity_matrix(4);
+    EXPECT_EQ(t, identity);
+}
+
+TEST(Matrix, MatrixLookingInPositiveZDirection)
+{
+    Point from(0, 0, 0);
+    Point to(0, 0, 1);
+    Vector up(0, 1, 0);
+    auto t = Matrix::view_transform(from, to, up);
+    EXPECT_EQ(t, Matrix::scaling(-1, 1, -1));
+}
+
+TEST(Matrix, ViewTransformMovesWorld)
+{
+    Point from(0, 0, 8);
+    Point to(0, 0, 0);
+    Vector up(0, 1, 0);
+    auto t = Matrix::view_transform(from, to, up);
+    auto translation = Matrix::translation(0, 0, -8);
+    EXPECT_EQ(t, translation);
+}
+
+TEST(Matrix, ArbitraryViewTransform)
+{
+    Point from(1, 3, 2);
+    Point to(4, -2, 8);
+    Vector up(1, 1, 0);
+    auto t = Matrix::view_transform(from, to, up);
+    Matrix expected({
+        {-0.50709, 0.50709, 0.67612, -2.36643},
+        {0.76772, 0.60609, 0.12122, -2.82843},
+        {-0.35857, 0.59761, -0.71714, 0},
+        {0, 0, 0, 1}
+    });
+}

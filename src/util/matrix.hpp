@@ -22,6 +22,7 @@ namespace dito::util
         static Matrix rotation_y(double);
         static Matrix rotation_z(double);
         static Matrix shearing(double, double, double, double, double, double);
+        static Matrix view_transform(Point, Point, Vector);
 
         double get(int row, int col) const;
         int num_rows() const;
