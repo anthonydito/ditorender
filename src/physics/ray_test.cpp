@@ -264,3 +264,24 @@ TEST(Ray, ColorWhenARayHits)
     Color c = r.color_at(w);
     EXPECT_EQ(c, Color(0.38066, 0.47583, 0.2855));
 }
+
+TEST(Ray, ColorWithAnIntersectionBehindRay)
+{
+    World w = World::default_world();
+
+    auto outer = w.objects()[0];
+
+    Material new_outer_material = outer->material();
+    new_outer_material.set_ambient(1);
+    outer->set_material(new_outer_material);
+
+    auto inner = w.objects()[1];
+
+    Material new_inner_material = inner->material();
+    new_inner_material.set_ambient(1);
+    inner->set_material(new_inner_material);
+
+    Ray r(Point(0, 0, 0.75), Vector(0, 0, -1));
+    Color c = r.color_at(w);
+    EXPECT_EQ(c, inner->material().color());
+}
