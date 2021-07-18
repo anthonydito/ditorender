@@ -339,3 +339,36 @@ std::ostream &dito::util::operator<<(std::ostream &os, const Matrix &m)
     }
     return os;
 }
+
+Matrix Matrix::view_transform(Point from, Point to, Vector up)
+{
+
+    std::cout << "view transform" << std::endl;
+    std::cout << to.sub(from) << std::endl;
+    std::cout << to.sub(from).to_vector() << std::endl;
+    std::cout << "before the nromize" << std::endl;
+    std::cout << to.sub(from).to_vector().normalize() << std::endl;
+    std::cout << "after that normlie" << std::endl;
+    std::cout << "Fprward formalize " << to.sub(from) << std::endl;
+    auto forward_normalize = to.sub(from).to_vector().normalize();
+    std::cout << "up normalize" << std::endl;
+    auto up_normalize = up.normalize();
+    std::cout << "forward" << std::endl;
+    auto left = forward_normalize.cross(up_normalize);
+    std::cout << "left" << std::endl;
+    auto true_up = left.cross(forward_normalize);
+    std::cout << "orientation" << std::endl;
+
+    Matrix orientation({{left.x(), left.y(), left.z(), 0},
+                        {true_up.x(), true_up.y(), true_up.z(), 0},
+                        {-forward_normalize.x(), -forward_normalize.y(), -forward_normalize.z(), 0},
+                        {0, 0, 0, 1}});
+
+    std::cout << "about to create orientation" << std::endl;
+
+    auto output = orientation * Matrix::translation(-from.x(), -from.y(), -from.z());
+
+    std::cout << "got the output" << std::endl;
+
+    return output;
+}

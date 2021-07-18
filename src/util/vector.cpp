@@ -29,7 +29,11 @@ double Vector::magnitude() const
 
 Vector Vector::normalize() const
 {
-    return this->divide(this->magnitude()).to_vector();
+    auto magnitude = this->magnitude();
+    if (magnitude == 0) {
+        return this->to_vector();
+    }
+    return this->divide(magnitude).to_vector();
 }
 
 Vector Vector::cross(const Vector &other) const {
