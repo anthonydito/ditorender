@@ -2,6 +2,7 @@
 #define DITO_DRAWING_CAMERA
 
 #include "../util/matrix.hpp"
+#include "../physics/ray.hpp"
 
 namespace dito::drawing {
     class Camera {
@@ -16,6 +17,7 @@ namespace dito::drawing {
             double pixel_size() const;
             double half_width() const;
             double half_height() const;
+            dito::physics::Ray ray_for_pixel(int, int);
 
         private:
             int _hsize;

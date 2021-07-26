@@ -231,6 +231,16 @@ add_executable(
   src/util/vector.cpp
   src/util/tuple.cpp
   src/util/point.cpp
+  src/physics/ray.cpp
+  src/util/color.cpp
+  src/physics/computations.cpp
+  src/physics/intersection.cpp
+  src/physics/intersections.cpp
+  src/util/sphere.cpp
+  src/physics/world.cpp
+  src/drawing/canvas.cpp
+  src/physics/point_light.cpp
+  src/physics/material.cpp
 )
 target_link_libraries(
   camera_test

@@ -1,6 +1,8 @@
 #include "camera.hpp"
 
 #include <math.h>
+#include "../util/point.hpp"
+#include "../util/vector.hpp"
 
 using namespace dito::drawing;
 
@@ -66,4 +68,26 @@ void Camera::_compute_and_store_pixel_size_and_half_width_height()
     this->_pixel_size = (half_width * 2) / hsize_d;
     this->_half_height = half_height;
     this->_half_width = half_width;
+}
+
+dito::physics::Ray Camera::ray_for_pixel(int px, int py)
+{
+    auto half_width = this->half_width();
+    auto half_height = this->half_height();
+    auto pixel_size = this->pixel_size();
+    auto px_double = static_cast<double>(px);
+    auto py_double = static_cast<double>(py);
+    auto xoffset = (px_double + 0.5) * pixel_size;
+    auto yoffset = (py_double + 0.5) * pixel_size;
+
+    auto worldx = half_width - xoffset;
+    auto worldy = half_height - yoffset;
+
+    auto pixel = this->transform().inverse() * dito::util::Point(worldx, worldy, -1);
+    auto origin = this->transform().inverse() * dito::util::Point(0, 0, 0);
+    dito::util::Vector direction = (pixel - origin).to_vector().normalize();
+
+    dito::util::Point p = origin.to_point();
+
+    return dito::physics::Ray(p, direction);
 }
